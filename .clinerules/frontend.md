@@ -1,6 +1,6 @@
 ---
-description: 
-globs: *.tsx,*.astro
+description: Frontend development rules for Astro, React, and Tailwind.
+globs: ["*.tsx", "*.astro", "*.css"]
 alwaysApply: false
 ---
 ## Frontend

@@ -1,6 +1,6 @@
 ---
-description: 
-globs: src/db/*.ts,src/middleware/*.ts,src/lib/*.ts
+description: Rules for Backend and Supabase integration.
+globs: ["src/db/*.ts", "src/middleware/*.ts", "src/lib/*.ts", "src/pages/api/**/*.ts"]
 alwaysApply: false
 ---
 ### Backend and Database

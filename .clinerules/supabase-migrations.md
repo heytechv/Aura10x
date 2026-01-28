@@ -1,6 +1,6 @@
 ---
-description: 
-globs: 
+description: Rules for creating Supabase database migration files.
+globs: "supabase/migrations/*.sql"
 alwaysApply: false
 ---
 # Database: Create migration

@@ -1,6 +1,6 @@
 ---
-description: 
-globs: *.tsx
+description: "Specific rules for React 19 development within an Astro project."
+globs: "*.tsx"
 alwaysApply: false
 ---
 ### Guidelines for React

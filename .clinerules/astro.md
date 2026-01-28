@@ -1,6 +1,6 @@
 ---
-description: 
-globs: *.astro
+description: "Guidelines for Astro development."
+globs: "*.astro"
 alwaysApply: false
 ---
 ### Guidelines for Astro

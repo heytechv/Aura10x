@@ -1,19 +1,20 @@
 ---
-description: 
-globs: 
+description: Project overview, tech stack, and shared rules for Aura.
+globs:
 alwaysApply: true
 ---
-# AI Rules for {app-name}
+# AI Rules for Aura
 
-{project-description}
+AURA is a web desktop application (MVP) designed to help users manage their personal perfume collection. The primary goal is to provide a simple, elegant interface for users to create and browse their own digital perfume shelf.
 
 ## Tech Stack
 
-- Astro 5
-- TypeScript 5
-- React 19
-- Tailwind 4
-- Shadcn/ui
+- **Framework**: Astro 5
+- **Language**: TypeScript 5
+- **Frontend**: React 19
+- **Styling**: Tailwind 4
+- **UI Components**: Shadcn/ui
+- **Backend/DB**: Supabase (PostgreSQL, Auth, Storage)
 
 ## Project Structure
 
@@ -38,6 +39,7 @@ When modifying the directory structure, always update this section.
 
 ### Guidelines for clean code
 
+- **Type Safety**: Use strict TypeScript types. Avoid `any`.
 - Use feedback from linters to improve the code when making changes.
 - Prioritize error handling and edge cases.
 - Handle errors and edge cases at the beginning of functions.
