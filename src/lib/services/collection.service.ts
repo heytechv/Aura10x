@@ -1,5 +1,6 @@
-import type { CollectionItemDto } from "../../types";
+import type { CollectionItemDto, UserCollection } from "../../types";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { AppError, handleServiceError } from "../handle-service-error";
 
 export const getCollectionByUserId = async (
   userId: string,
@@ -51,4 +52,49 @@ export const getCollectionByUserId = async (
   });
 
   return collectionItems;
+};
+
+export const addPerfumeToCollection = async (
+  userId: string,
+  perfumeId: string,
+  supabase: SupabaseClient
+): Promise<UserCollection> => {
+  try {
+    // 1. Check if perfume exists
+    const { data: perfume, error: perfumeError } = await supabase
+      .from("perfumes")
+      .select("id")
+      .eq("id", perfumeId)
+      .single();
+
+    if (perfumeError || !perfume) {
+      throw new AppError("Perfume not found.", 404);
+    }
+
+    // 2. Check for duplicates in the user's collection
+    const { data: existingEntry } = await supabase
+      .from("user_collection")
+      .select("user_id, perfume_id")
+      .eq("user_id", userId)
+      .eq("perfume_id", perfumeId)
+      .single();
+
+    if (existingEntry) {
+      throw new AppError("Perfume already in collection.", 409);
+    }
+
+    // 3. Add the new perfume to the collection
+    const { data: newCollectionEntry, error: insertError } = await supabase
+      .from("user_collection")
+      .insert({ user_id: userId, perfume_id: perfumeId })
+      .select()
+      .single();
+
+    if (insertError) throw insertError;
+    if (!newCollectionEntry) throw new AppError("Failed to add perfume to collection", 500);
+
+    return newCollectionEntry;
+  } catch (error) {
+    throw handleServiceError(error);
+  }
 };
