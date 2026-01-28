@@ -12,7 +12,8 @@ create table public.perfume_perfumers (
 comment on table public.perfume_perfumers is 'Join table linking perfumes to their creators (perfumers).';
 -- Enable RLS and define policies
 alter table public.perfume_perfumers enable row level security;
-create policy "Allow public read access to perfume_perfumers" on public.perfume_perfumers for select using (true);
+create policy "anon_perfume_perfumers_select_policy" on public.perfume_perfumers for select to anon using (true);
+create policy "authenticated_perfume_perfumers_select_policy" on public.perfume_perfumers for select to authenticated using (true);
 -- Indexes
 create index idx_perfume_perfumers_perfume on public.perfume_perfumers(perfume_id);
 create index idx_perfume_perfumers_perfumer on public.perfume_perfumers(perfumer_id);
@@ -31,7 +32,8 @@ create table public.perfume_notes (
 comment on table public.perfume_notes is 'Join table linking perfumes to their specific notes within the fragrance pyramid.';
 -- Enable RLS and define policies
 alter table public.perfume_notes enable row level security;
-create policy "Allow public read access to perfume_notes" on public.perfume_notes for select using (true);
+create policy "anon_perfume_notes_select_policy" on public.perfume_notes for select to anon using (true);
+create policy "authenticated_perfume_notes_select_policy" on public.perfume_notes for select to authenticated using (true);
 -- Indexes
 create index idx_perfume_notes_perfume on public.perfume_notes(perfume_id);
 
@@ -48,6 +50,7 @@ create table public.perfume_accords (
 comment on table public.perfume_accords is 'Join table linking perfumes to their dominant accords.';
 -- Enable RLS and define policies
 alter table public.perfume_accords enable row level security;
-create policy "Allow public read access to perfume_accords" on public.perfume_accords for select using (true);
+create policy "anon_perfume_accords_select_policy" on public.perfume_accords for select to anon using (true);
+create policy "authenticated_perfume_accords_select_policy" on public.perfume_accords for select to authenticated using (true);
 -- Indexes
 create index idx_perfume_accords_perfume on public.perfume_accords(perfume_id);

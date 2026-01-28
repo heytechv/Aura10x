@@ -15,7 +15,8 @@ create table public.brands (
 comment on table public.brands is 'Stores information about perfume brands.';
 -- Enable RLS and define policies
 alter table public.brands enable row level security;
-create policy "Allow public read access to brands" on public.brands for select using (true);
+create policy "anon_brands_select_policy" on public.brands for select to anon using (true);
+create policy "authenticated_brands_select_policy" on public.brands for select to authenticated using (true);
 
 --
 -- 2. Create perfumers table
@@ -27,7 +28,8 @@ create table public.perfumers (
 comment on table public.perfumers is 'Stores information about the creators of perfumes.';
 -- Enable RLS and define policies
 alter table public.perfumers enable row level security;
-create policy "Allow public read access to perfumers" on public.perfumers for select using (true);
+create policy "anon_perfumers_select_policy" on public.perfumers for select to anon using (true);
+create policy "authenticated_perfumers_select_policy" on public.perfumers for select to authenticated using (true);
 
 --
 -- 3. Create notes table
@@ -41,7 +43,8 @@ create table public.notes (
 comment on table public.notes is 'Stores individual fragrance notes (e.g., Bergamot, Cedarwood).';
 -- Enable RLS and define policies
 alter table public.notes enable row level security;
-create policy "Allow public read access to notes" on public.notes for select using (true);
+create policy "anon_notes_select_policy" on public.notes for select to anon using (true);
+create policy "authenticated_notes_select_policy" on public.notes for select to authenticated using (true);
 
 --
 -- 4. Create accords table
@@ -53,4 +56,5 @@ create table public.accords (
 comment on table public.accords is 'Stores high-level fragrance accords (e.g., Woody, Floral).';
 -- Enable RLS and define policies
 alter table public.accords enable row level security;
-create policy "Allow public read access to accords" on public.accords for select using (true);
+create policy "anon_accords_select_policy" on public.accords for select to anon using (true);
+create policy "authenticated_accords_select_policy" on public.accords for select to authenticated using (true);

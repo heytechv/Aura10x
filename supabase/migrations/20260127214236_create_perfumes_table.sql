@@ -23,7 +23,8 @@ comment on table public.perfumes is 'The core table containing detailed informat
 -- 2. Enable RLS and define policies
 --
 alter table public.perfumes enable row level security;
-create policy "Allow public read access to perfumes" on public.perfumes for select using (true);
+create policy "anon_perfumes_select_policy" on public.perfumes for select to anon using (true);
+create policy "authenticated_perfumes_select_policy" on public.perfumes for select to authenticated using (true);
 
 --
 -- 3. Indexes
