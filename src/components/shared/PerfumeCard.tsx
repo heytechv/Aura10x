@@ -72,7 +72,7 @@ export const PerfumeCard = ({
             ) : (
               <Trash2 className="mr-2 h-4 w-4" />
             )}
-            Remove
+            Usuń
           </Button>
         )}
         {variant === "add" && onAdd && (
@@ -88,7 +88,7 @@ export const PerfumeCard = ({
             ) : (
               <Plus className="mr-2 h-4 w-4" />
             )}
-            {isDisabled ? "In Collection" : "Add"}
+            {isDisabled ? "W kolekcji" : "Dodaj"}
           </Button>
         )}
       </CardFooter>

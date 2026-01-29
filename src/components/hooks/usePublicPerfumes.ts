@@ -6,7 +6,7 @@ import type {
   AddPerfumeToCollectionResponseDto
 } from "@/types";
 
-const API_LIMIT = 20;
+const API_LIMIT = 10;
 
 export const usePublicPerfumes = (existingCollectionIds: Set<string>) => {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");

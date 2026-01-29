@@ -20,13 +20,13 @@ export const CollectionContainer = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold">My Collection</h1>
-        <Button onClick={() => setIsModalOpen(true)}>Add New Perfume</Button>
+        <h1 className="text-4xl font-bold">Moja kolekcja</h1>
+        <Button onClick={() => setIsModalOpen(true)}>Dodaj nowe perfumy</Button>
       </div>
 
       {status === "error" && (
         <div className="text-center text-red-500">
-          <p>Failed to load collection. Please try again later.</p>
+          <p>Nie udało się wczytać kolekcji. Proszę spróbować ponownie później.</p>
         </div>
       )}
 

@@ -1,6 +1,8 @@
 ---
+import { ViewTransitions } from "astro:transitions";
 import "../styles/global.css";
 import { cn } from "@/lib/utils";
+import Navigation from "@/components/Navigation.astro";
 
 interface Props {
   title?: string;
@@ -11,7 +13,7 @@ const { title = "AURA", theme = "light" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class={cn(theme === "dark" ? "dark" : "")}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="AURA - manage your perfume collection" />
@@ -19,13 +21,12 @@ const { title = "AURA", theme = "light" } = Astro.props;
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ViewTransitions />
   </head>
   <body
-    class={cn(
-      "flex min-h-screen flex-col bg-background font-sans antialiased",
-      theme === "dark" ? "dark" : "",
-    )}
+    class="flex min-h-screen flex-col bg-background font-sans antialiased"
   >
+    <Navigation />
     <slot />
   </body>
 </html>

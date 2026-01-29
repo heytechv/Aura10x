@@ -1,6 +1,5 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Navigation from "@/components/Navigation.astro";
 import HeroSection from "@/components/HeroSection.astro";
 
 const { session } = Astro.locals;
@@ -8,7 +7,6 @@ const isLoggedIn = session !== null;
 ---
 
 <Layout>
-  <Navigation />
   <main class="flex-1">
     <HeroSection isLoggedIn={isLoggedIn} />
   </main>

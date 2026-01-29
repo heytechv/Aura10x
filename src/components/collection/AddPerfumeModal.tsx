@@ -59,24 +59,24 @@ export const AddPerfumeModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg max-h-[80vh] flex flex-col">
+      <DialogContent className="sm:max-w-3xl max-h-[80vh] flex flex-col">
         <DialogHeader>
-          <DialogTitle>Add Perfume to Collection</DialogTitle>
+          <DialogTitle>Dodaj perfumy do kolekcji</DialogTitle>
           <DialogDescription>
-            Search for a perfume to add to your personal collection.
+            Wyszukaj perfumy, aby dodać je do swojej osobistej kolekcji.
           </DialogDescription>
         </DialogHeader>
         <div className="px-4">
           <Input
-            placeholder="Search by name or brand..."
+            placeholder="Szukaj po nazwie lub marce..."
             onChange={(e) => debouncedSearch(e.target.value)}
           />
         </div>
         <div className="p-4 overflow-y-auto">
-          {status === 'loading' && items.length === 0 && <p>Loading...</p>}
-          {status === 'error' && <p>Error loading perfumes.</p>}
-          {status === 'success' && items.length === 0 && <p>No results found.</p>}
-          <div className="grid grid-cols-2 gap-4">
+          {status === 'loading' && items.length === 0 && <p>Ładowanie...</p>}
+          {status === 'error' && <p>Błąd ładowania perfum.</p>}
+          {status === 'success' && items.length === 0 && <p>Nie znaleziono wyników.</p>}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {items.map(item => (
               <PerfumeCard
                 key={item.id}
@@ -88,10 +88,10 @@ export const AddPerfumeModal = ({
               />
             ))}
           </div>
-          {status === 'loading' && items.length > 0 && <p className="text-center mt-4">Loading more...</p>}
+          {status === 'loading' && items.length > 0 && <p className="text-center mt-4">Ładowanie więcej...</p>}
           {hasMore && status !== 'loading' && (
             <Button onClick={loadMore} variant="outline" className="w-full mt-4">
-              Load More
+              Załaduj więcej
             </Button>
           )}
         </div>
