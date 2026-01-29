@@ -51,7 +51,21 @@ Kluczowa funkcjonalność – dodawanie perfum do kolekcji – została scentral
         - Ścieżka chroniona – dostępna tylko dla zalogowanych użytkowników.
         - Niezalogowany użytkownik jest automatycznie przekierowywany na stronę logowania, a po pomyślnym logowaniu wraca do `/collection`.
 
-### Widok 3 (Komponent): Modal Dodawania Perfum
+### Widok 3: Logowanie
+- **Nazwa widoku**: Strona Logowania
+- **Ścieżka widoku**: `/login` (lub inna ścieżka obsługująca autoryzację)
+- **Główny cel**: Umożliwienie użytkownikowi zalogowania się do aplikacji za pomocą dostawcy OAuth (Google) w celu uzyskania dostępu do chronionych zasobów, takich jak "Moja Kolekcja".
+- **Kluczowe informacje do wyświetlenia**:
+    - Wyraźny przycisk "Zaloguj się z Google".
+    - Informacja o korzyściach płynących z zalogowania (np. "Zaloguj się, aby zapisać swoją kolekcję").
+- **Kluczowe komponenty widoku**:
+    - Przycisk logowania Google.
+- **UX, dostępność i względy bezpieczeństwa**:
+    - **UX**: Proces logowania powinien być jak najprostszy i najszybszy. Użytkownik jest tu kierowany automatycznie, gdy próbuje uzyskać dostęp do chronionej strony, co minimalizuje tarcie.
+    - **Dostępność**: Przycisk logowania musi być wyraźnie oznaczony i dostępny z klawiatury.
+    - **Bezpieczeństwo**: Cały proces logowania i obsługa tokenów jest zarządzany przez Supabase i protokół OAuth 2.0, co zapewnia wysoki poziom bezpieczeństwa. Aplikacja nigdy nie przechowuje haseł.
+
+### Widok 4 (Komponent): Modal Dodawania Perfum
 - **Nazwa widoku**: Modal Dodaj Perfumy
 - **Ścieżka widoku**: (Brak - komponent wewnątrz `/collection`)
 - **Główny cel**: Umożliwienie użytkownikowi przeszukiwania ogólnej bazy perfum i dodawania wybranych pozycji do swojej kolekcji.
@@ -82,13 +96,14 @@ Główny przepływ dla nowego, niezalogowanego użytkownika:
 
 1.  **Krok 1: Odkrycie**: Użytkownik ląduje na **Stronie Głównej (`/`)**, gdzie zapoznaje się z celem aplikacji.
 2.  **Krok 2: Zainteresowanie**: Użytkownik klika link "Moja Kolekcja" w nawigacji.
-3.  **Krok 3: Logowanie**: Aplikacja wykrywa brak sesji i przekierowuje użytkownika do procesu logowania przez Google.
-4.  **Krok 4: Powrót**: Po pomyślnym zalogowaniu, użytkownik jest automatycznie przekierowywany z powrotem na stronę **Moja Kolekcja (`/collection`)**.
-5.  **Krok 5: Pierwsze wrażenie**: Użytkownik widzi stronę "Moja Kolekcja" w ciemnym motywie, z komunikatem informującym, że jego kolekcja jest pusta, oraz z wyraźnym przyciskiem "Dodaj perfum".
-6.  **Krok 6: Inicjacja dodawania**: Użytkownik klika przycisk "Dodaj perfum", co otwiera **Modal Dodawania Perfum**.
-7.  **Krok 7: Wyszukiwanie i wybór**: W modalu użytkownik wpisuje nazwę perfum w polu wyszukiwania, przegląda wyniki i klika przycisk "Dodaj" przy wybranej pozycji.
-8.  **Krok 8: Potwierdzenie**: Modal zamyka się, a na stronie "Moja Kolekcja" pojawia się nowo dodany przedmiot z subtelną animacją.
-9.  **Krok 9: Zarządzanie kolekcją**: Użytkownik może teraz najechać na dodany element, aby wyświetlić i użyć opcji "Usuń".
+3.  **Krok 3: Przekierowanie**: Aplikacja wykrywa brak sesji i automatycznie przekierowuje użytkownika na **Stronę Logowania (`/login`)**.
+4.  **Krok 4: Autoryzacja**: Na stronie logowania użytkownik klika "Zaloguj się z Google" i przechodzi przez standardowy proces autoryzacji OAuth.
+5.  **Krok 5: Powrót**: Po pomyślnym zalogowaniu, użytkownik jest automatycznie przekierowywany z powrotem na stronę **Moja Kolekcja (`/collection`)**.
+6.  **Krok 6: Pierwsze wrażenie**: Użytkownik widzi stronę "Moja Kolekcja" w ciemnym motywie, z komunikatem informującym, że jego kolekcja jest pusta, oraz z wyraźnym przyciskiem "Dodaj perfum".
+7.  **Krok 7: Inicjacja dodawania**: Użytkownik klika przycisk "Dodaj perfum", co otwiera **Modal Dodawania Perfum**.
+8.  **Krok 8: Wyszukiwanie i wybór**: W modalu użytkownik wpisuje nazwę perfum w polu wyszukiwania, przegląda wyniki i klika przycisk "Dodaj" przy wybranej pozycji.
+9.  **Krok 9: Potwierdzenie**: Modal zamyka się, a na stronie "Moja Kolekcja" pojawia się nowo dodany przedmiot z subtelną animacją.
+10. **Krok 10: Zarządzanie kolekcją**: Użytkownik może teraz najechać na dodany element, aby wyświetlić i użyć opcji "Usuń".
 
 ## 4. Układ i struktura nawigacji
 
