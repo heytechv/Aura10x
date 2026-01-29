@@ -98,3 +98,27 @@ export const addPerfumeToCollection = async (
     throw handleServiceError(error);
   }
 };
+
+export const removePerfumeFromCollection = async (
+  userId: string,
+  perfumeId: string,
+  supabase: SupabaseClient
+): Promise<void> => {
+  try {
+    const { error, count } = await supabase
+      .from("user_collection")
+      .delete()
+      .eq("user_id", userId)
+      .eq("perfume_id", perfumeId);
+
+    if (error) {
+      throw error;
+    }
+
+    if (count === 0) {
+      throw new AppError("Perfume not found in collection.", 404);
+    }
+  } catch (error) {
+    throw handleServiceError(error);
+  }
+};
