@@ -1,11 +1,13 @@
 ---
 import "../styles/global.css";
+import { cn } from "@/lib/utils";
 
 interface Props {
   title?: string;
+  theme?: "dark" | "light";
 }
 
-const { title = "AURA" } = Astro.props;
+const { title = "AURA", theme = "light" } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,7 +20,12 @@ const { title = "AURA" } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="flex min-h-screen flex-col bg-background font-sans antialiased">
+  <body
+    class={cn(
+      "flex min-h-screen flex-col bg-background font-sans antialiased",
+      theme === "dark" ? "dark" : "",
+    )}
+  >
     <slot />
   </body>
 </html>

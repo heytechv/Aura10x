@@ -1,0 +1,10 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { CollectionContainer } from "@/components/collection/CollectionContainer";
+---
+
+<Layout title="My Collection" theme="dark">
+  <main class="container mx-auto px-4 py-8">
+    <CollectionContainer client:load />
+  </main>
+</Layout>

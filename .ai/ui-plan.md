@@ -51,21 +51,7 @@ Kluczowa funkcjonalność – dodawanie perfum do kolekcji – została scentral
         - Ścieżka chroniona – dostępna tylko dla zalogowanych użytkowników.
         - Niezalogowany użytkownik jest automatycznie przekierowywany na stronę logowania, a po pomyślnym logowaniu wraca do `/collection`.
 
-### Widok 3: Logowanie
-- **Nazwa widoku**: Strona Logowania
-- **Ścieżka widoku**: `/login` (lub inna ścieżka obsługująca autoryzację)
-- **Główny cel**: Umożliwienie użytkownikowi zalogowania się do aplikacji za pomocą dostawcy OAuth (Google) w celu uzyskania dostępu do chronionych zasobów, takich jak "Moja Kolekcja".
-- **Kluczowe informacje do wyświetlenia**:
-    - Wyraźny przycisk "Zaloguj się z Google".
-    - Informacja o korzyściach płynących z zalogowania (np. "Zaloguj się, aby zapisać swoją kolekcję").
-- **Kluczowe komponenty widoku**:
-    - Przycisk logowania Google.
-- **UX, dostępność i względy bezpieczeństwa**:
-    - **UX**: Proces logowania powinien być jak najprostszy i najszybszy. Użytkownik jest tu kierowany automatycznie, gdy próbuje uzyskać dostęp do chronionej strony, co minimalizuje tarcie.
-    - **Dostępność**: Przycisk logowania musi być wyraźnie oznaczony i dostępny z klawiatury.
-    - **Bezpieczeństwo**: Cały proces logowania i obsługa tokenów jest zarządzany przez Supabase i protokół OAuth 2.0, co zapewnia wysoki poziom bezpieczeństwa. Aplikacja nigdy nie przechowuje haseł.
-
-### Widok 4 (Komponent): Modal Dodawania Perfum
+### Widok 2.1 (Komponent): Modal Dodawania Perfum
 - **Nazwa widoku**: Modal Dodaj Perfumy
 - **Ścieżka widoku**: (Brak - komponent wewnątrz `/collection`)
 - **Główny cel**: Umożliwienie użytkownikowi przeszukiwania ogólnej bazy perfum i dodawania wybranych pozycji do swojej kolekcji.
@@ -89,6 +75,20 @@ Kluczowa funkcjonalność – dodawanie perfum do kolekcji – została scentral
         - Możliwość zamknięcia modala klawiszem `Escape`.
         - Etykiety ARIA dla interaktywnych elementów.
     - **Bezpieczeństwo**: Interakcje (dodawanie) są walidowane po stronie serwera (zgodnie z planem API).
+
+### Widok 3: Logowanie
+- **Nazwa widoku**: Strona Logowania
+- **Ścieżka widoku**: `/login` (lub inna ścieżka obsługująca autoryzację)
+- **Główny cel**: Umożliwienie użytkownikowi zalogowania się do aplikacji za pomocą dostawcy OAuth (Google) w celu uzyskania dostępu do chronionych zasobów, takich jak "Moja Kolekcja".
+- **Kluczowe informacje do wyświetlenia**:
+    - Wyraźny przycisk "Zaloguj się z Google".
+    - Informacja o korzyściach płynących z zalogowania (np. "Zaloguj się, aby zapisać swoją kolekcję").
+- **Kluczowe komponenty widoku**:
+    - Przycisk logowania Google.
+- **UX, dostępność i względy bezpieczeństwa**:
+    - **UX**: Proces logowania powinien być jak najprostszy i najszybszy. Użytkownik jest tu kierowany automatycznie, gdy próbuje uzyskać dostęp do chronionej strony, co minimalizuje tarcie.
+    - **Dostępność**: Przycisk logowania musi być wyraźnie oznaczony i dostępny z klawiatury.
+    - **Bezpieczeństwo**: Cały proces logowania i obsługa tokenów jest zarządzany przez Supabase i protokół OAuth 2.0, co zapewnia wysoki poziom bezpieczeństwa. Aplikacja nigdy nie przechowuje haseł.
 
 ## 3. Mapa podróży użytkownika
 

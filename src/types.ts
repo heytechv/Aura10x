@@ -77,3 +77,20 @@ export type AddPerfumeToCollectionResponseDto = {
  * Represents the request payload for `POST /api/collection`.
  */
 export type AddPerfumeToCollectionCommand = Pick<UserCollection, "perfume_id">;
+
+// --- ViewModels ---
+
+/**
+ * Extends `CollectionItemDto` with UI-specific state for the collection view.
+ */
+export type CollectionItemViewModel = CollectionItemDto & {
+  isBeingRemoved?: boolean;
+};
+
+/**
+ * Extends `PerfumeListItemDto` with UI-specific state for the "add perfume" modal.
+ */
+export type PerfumeListItemViewModel = PerfumeListItemDto & {
+  isBeingAdded?: boolean;
+  isInCollection?: boolean;
+};
