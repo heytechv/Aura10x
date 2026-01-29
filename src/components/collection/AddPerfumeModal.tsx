@@ -28,7 +28,7 @@ const debounce = <F extends (...args: any[]) => any>(func: F, waitFor: number) =
 type AddPerfumeModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  onPerfumeAdded: (newPerfume: AddPerfumeToCollectionResponseDto) => void;
+  onPerfumeAdded: (response: AddPerfumeToCollectionResponseDto) => void;
   existingCollectionIds: Set<string>;
 };
 
@@ -50,8 +50,8 @@ export const AddPerfumeModal = ({
 
   const handleAddPerfume = async (perfume: PerfumeListItemViewModel) => {
     try {
-      const newCollectionItem = await addPerfume(perfume.id);
-      onPerfumeAdded(newCollectionItem);
+      const response = await addPerfume(perfume.id);
+      onPerfumeAdded(response);
     } catch (error) {
       console.error("Failed to add perfume", error);
     }

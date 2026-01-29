@@ -10,9 +10,8 @@ export const CollectionContainer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { status, items, removePerfumeFromCollection, addPerfumeToCollection } = useCollection();
 
-  const handlePerfumeAdded = (newPerfume: AddPerfumeToCollectionResponseDto) => {
-    addPerfumeToCollection(newPerfume);
-    setIsModalOpen(false);
+  const handlePerfumeAdded = () => {
+    addPerfumeToCollection();
   };
 
   const existingCollectionIds = new Set(items.map((item) => item.perfume_id));
@@ -30,7 +29,7 @@ export const CollectionContainer = () => {
         </div>
       )}
 
-      {status !== "error" && items.length === 0 && status !== 'loading' ? (
+      {status === 'success' && items.length === 0 ? (
         <EmptyState onAddClick={() => setIsModalOpen(true)} />
       ) : (
         <CollectionGrid items={items} status={status} onRemove={removePerfumeFromCollection} />

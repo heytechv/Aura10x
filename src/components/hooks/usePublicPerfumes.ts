@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import type {
   PerfumeListItemViewModel,
   PaginationDetails,
@@ -13,6 +13,11 @@ export const usePublicPerfumes = (existingCollectionIds: Set<string>) => {
   const [items, setItems] = useState<PerfumeListItemViewModel[]>([]);
   const [pagination, setPagination] = useState<PaginationDetails | null>(null);
   const [query, setQuery] = useState("");
+
+  const collectionIdsRef = useRef(existingCollectionIds);
+  useEffect(() => {
+    collectionIdsRef.current = existingCollectionIds;
+  }, [existingCollectionIds]);
 
   const fetchPerfumes = useCallback(async (searchQuery: string, page = 1) => {
     setStatus("loading");
@@ -29,7 +34,7 @@ export const usePublicPerfumes = (existingCollectionIds: Set<string>) => {
       
       const viewModels = data.data.map((perfume): PerfumeListItemViewModel => ({
         ...perfume,
-        isInCollection: existingCollectionIds.has(perfume.id),
+        isInCollection: collectionIdsRef.current.has(perfume.id),
         isBeingAdded: false,
       }));
 
@@ -40,7 +45,7 @@ export const usePublicPerfumes = (existingCollectionIds: Set<string>) => {
       console.error(error);
       setStatus("error");
     }
-  }, [existingCollectionIds]);
+  }, []);
 
   const hasMore = useMemo(() => {
     if (!pagination) return false;

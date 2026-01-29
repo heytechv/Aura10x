@@ -3,17 +3,23 @@ import { addPerfumeToCollection, getCollectionByUserId } from "../../lib/service
 import { z } from "zod";
 import type { AddPerfumeToCollectionResponseDto } from "../../types";
 import { AppError } from "../../lib/handle-service-error";
+import { MOCK_USER_ID } from "../../lib/auth";
 
 export const prerender = false;
 
 export const GET: APIRoute = async ({ locals }) => {
   const { user, supabase } = locals;
 
-  // Using a hardcoded user ID for now, as per instructions to ignore auth.
-  const userId = "00000000-0000-0000-0000-000000000000"; // Replace with a real user ID from your DB for testing
+  // TODO: Replace MOCK_USER_ID with user.id when authentication is implemented
+  // if (!user) {
+  //   return new Response(JSON.stringify({ error: "Unauthorized" }), {
+  //     status: 401,
+  //     headers: { "Content-Type": "application/json" },
+  //   });
+  // }
 
   try {
-    const collection = await getCollectionByUserId(userId, supabase);
+    const collection = await getCollectionByUserId(MOCK_USER_ID, supabase);
     return new Response(JSON.stringify({ data: collection }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
@@ -34,12 +40,13 @@ const addPerfumeToCollectionSchema = z.object({
 export const POST: APIRoute = async ({ request, locals }) => {
   const { user, supabase } = locals;
 
-  if (!user) {
-    return new Response(JSON.stringify({ error: "Unauthorized" }), {
-      status: 401,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
+  // TODO: Replace MOCK_USER_ID with user.id when authentication is implemented
+  // if (!user) {
+  //   return new Response(JSON.stringify({ error: "Unauthorized" }), {
+  //     status: 401,
+  //     headers: { "Content-Type": "application/json" },
+  //   });
+  // }
 
   try {
     const body = await request.json();
@@ -53,7 +60,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     const { perfume_id } = validation.data;
-    const newCollectionEntry = await addPerfumeToCollection(user.id, perfume_id, supabase);
+    const newCollectionEntry = await addPerfumeToCollection(MOCK_USER_ID, perfume_id, supabase);
 
     const response: AddPerfumeToCollectionResponseDto = {
       message: "Perfume added successfully.",

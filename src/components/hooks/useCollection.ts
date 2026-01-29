@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import type { CollectionItemViewModel, CollectionItemDto, AddPerfumeToCollectionResponseDto } from "@/types";
-
 export const useCollection = () => {
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
   const [items, setItems] = useState<CollectionItemViewModel[]>([]);
@@ -25,25 +24,8 @@ export const useCollection = () => {
     fetchCollection();
   }, [fetchCollection]);
 
-  const addPerfumeToCollection = useCallback(async (newPerfume: AddPerfumeToCollectionResponseDto) => {
-    // This function is for optimistic update after adding a perfume
-    // A full implementation might require fetching brand info or having it in the response
-    const newItem: CollectionItemViewModel = {
-      perfume_id: newPerfume.data.perfume_id,
-      added_at: newPerfume.data.added_at,
-      perfume: {
-          // This is a limitation, as we don't have the full perfume object here.
-          // This would need to be addressed by either changing the POST response
-          // or fetching the details after adding. For now, we mock it.
-          name: 'Newly Added Perfume',
-          slug: 'newly-added-perfume',
-          image_path: null,
-          brand: { name: 'Brand' }
-      },
-      isBeingRemoved: false,
-    };
-    // To properly add the item, we'd need its full details.
-    // Instead, we will just refetch the whole collection for simplicity.
+  const addPerfumeToCollection = useCallback(() => {
+    // Refetch the entire collection to ensure data is up-to-date.
     fetchCollection();
   }, [fetchCollection]);
 

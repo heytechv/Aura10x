@@ -9,16 +9,6 @@ type CollectionGridProps = {
 };
 
 export const CollectionGrid = ({ items, status, onRemove }: CollectionGridProps) => {
-  if (status === "loading") {
-    return (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <SkeletonCard key={index} />
-        ))}
-      </div>
-    );
-  }
-
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       {items.map((item) => (
