@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PerfumeCard } from "@/components/shared/PerfumeCard";
+import { SkeletonCard } from "@/components/shared/SkeletonCard";
 import { usePublicPerfumes } from "@/components/hooks/usePublicPerfumes";
 import type { AddPerfumeToCollectionResponseDto, PerfumeListItemViewModel } from "@/types";
 
@@ -73,21 +74,38 @@ export const AddPerfumeModal = ({
           />
         </div>
         <div className="p-4 overflow-y-auto">
-          {status === 'loading' && items.length === 0 && <p>Ładowanie...</p>}
-          {status === 'error' && <p>Błąd ładowania perfum.</p>}
-          {status === 'success' && items.length === 0 && <p>Nie znaleziono wyników.</p>}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {items.map(item => (
-              <PerfumeCard
-                key={item.id}
-                perfume={item}
-                variant="add"
-                onAdd={handleAddPerfume}
-                isProcessing={item.isBeingAdded}
-                isDisabled={item.isInCollection}
-              />
-            ))}
-          </div>
+          {(() => {
+            if (status === 'loading' && items.length === 0) {
+              return (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {Array.from({ length: 6 }).map((_, index) => (
+                    <SkeletonCard key={index} />
+                  ))}
+                </div>
+              );
+            }
+            if (status === 'error') {
+              return <p>Błąd ładowania perfum.</p>;
+            }
+            if (status === 'success' && items.length === 0) {
+              return <p>Nie znaleziono wyników.</p>;
+            }
+            return (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {items.map(item => (
+                  <PerfumeCard
+                    key={item.id}
+                    perfume={item}
+                    variant="add"
+                    onAdd={handleAddPerfume}
+                    isProcessing={item.isBeingAdded}
+                    isDisabled={item.isInCollection}
+                  />
+                ))}
+              </div>
+            );
+          })()}
+          
           {status === 'loading' && items.length > 0 && <p className="text-center mt-4">Ładowanie więcej...</p>}
           {hasMore && status !== 'loading' && (
             <Button onClick={loadMore} variant="outline" className="w-full mt-4">
