@@ -2,7 +2,6 @@ import { z } from "zod";
 import type { APIRoute } from "astro";
 import { removePerfumeFromCollection } from "../../../lib/services/collection.service";
 import { AppError } from "../../../lib/handle-service-error";
-import { MOCK_USER_ID } from "../../../lib/auth";
 
 export const prerender = false;
 
@@ -13,13 +12,12 @@ const perfumeIdSchema = z.string().uuid({
 export const DELETE: APIRoute = async ({ params, locals }) => {
   const { user, supabase } = locals;
 
-  // TODO: Replace MOCK_USER_ID with user.id when authentication is implemented
-  // if (!user) {
-  //   return new Response(JSON.stringify({ message: "Unauthorized" }), {
-  //     status: 401,
-  //     headers: { "Content-Type": "application/json" },
-  //   });
-  // }
+  if (!user) {
+    return new Response(JSON.stringify({ message: "Unauthorized" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 
   const perfumeId = params.perfumeId;
 
@@ -39,7 +37,7 @@ export const DELETE: APIRoute = async ({ params, locals }) => {
 
   try {
     await removePerfumeFromCollection(
-      MOCK_USER_ID,
+      user.id,
       validationResult.data,
       supabase
     );

@@ -8,7 +8,7 @@ interface Props {
 const { isLoggedIn } = Astro.props;
 
 const ctaText = isLoggedIn ? "Przejdź do kolekcji" : "Stwórz swoją kolekcję";
-const ctaHref = isLoggedIn ? "/collection" : "/api/auth/signin";
+const ctaHref = isLoggedIn ? "/collection" : "/login";
 ---
 
 <section class="container mx-auto flex flex-col items-center justify-center gap-6 pb-8 pt-6 text-center md:pb-12 md:pt-10 lg:py-28">

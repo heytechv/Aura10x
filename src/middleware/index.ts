@@ -1,17 +1,27 @@
-// src/middleware/index.ts
+import { createSupabaseServerInstance } from '../db/supabase';
 import { defineMiddleware } from 'astro:middleware';
-import { createSupabaseServerClient } from '../db/supabase';
 
-export const onRequest = defineMiddleware(async (context, next) => {
-  const supabase = createSupabaseServerClient(context.cookies);
+const PROTECTED_ROUTES = ['/collection'];
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+export const onRequest = defineMiddleware(
+  async ({ locals, cookies, url, request, redirect }, next) => {
+    const supabase = createSupabaseServerInstance({
+      cookies,
+      headers: request.headers,
+    });
 
-  context.locals.supabase = supabase;
-  context.locals.session = session;
-  context.locals.user = session?.user ?? null;
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  return next();
-});
+    locals.supabase = supabase;
+    locals.user = user;
+    locals.session = null; // getUser does not return session, setting to null to satisfy types
+
+    if (!user && PROTECTED_ROUTES.some(route => url.pathname.startsWith(route))) {
+      return redirect(`/login?redirect=${url.pathname}`);
+    }
+
+    return next();
+  },
+);

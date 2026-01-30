@@ -2,8 +2,8 @@
 import Layout from "@/layouts/Layout.astro";
 import HeroSection from "@/components/HeroSection.astro";
 
-const { session } = Astro.locals;
-const isLoggedIn = session !== null;
+const { user } = Astro.locals;
+const isLoggedIn = !!user;
 ---
 
 <Layout>
