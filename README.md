@@ -9,6 +9,12 @@ A modern, opinionated starter template for building fast, accessible, and AI-fri
 - [TypeScript](https://www.typescriptlang.org/) v5 - Type-safe JavaScript
 - [Tailwind CSS](https://tailwindcss.com/) v4.0.17 - Utility-first CSS framework
 
+### Testing
+
+- [Vitest](https://vitest.dev/) - Blazing fast unit test framework
+- [React Testing Library](https://testing-library.com/) - React component testing utilities
+- [Playwright](https://playwright.dev/) - End-to-end testing for modern web apps
+
 ## Prerequisites
 
 - Node.js v22.14.0 (as specified in `.nvmrc`)

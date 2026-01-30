@@ -19,3 +19,9 @@ Niniejszy dokument opisuje stos technologiczny wykorzystany w procesie tworzenia
 ## 3. CI/CD i Hosting:
 * **Github Actions**: do tworzenia pipeline’ów CI/CD
 * **DigitalOcean**: do hostowania aplikacji za pośrednictwem obrazu docker
+
+## 4. Testowanie (Quality Assurance)
+* **Vitest**: Główny runner testów jednostkowych i integracyjnych, wybrany ze względu na szybkość i natywną integrację z Vite.
+* **React Testing Library**: Zestaw narzędzi do testowania komponentów React, skupiający się na testowaniu zachowania aplikacji z perspektywy użytkownika.
+* **Happy-DOM**: Lekka i szybka implementacja DOM używana do symulacji środowiska przeglądarki w testach jednostkowych.
+* **Playwright**: Narzędzie do automatyzacji testów End-to-End (E2E), umożliwiające testowanie krytycznych ścieżek użytkownika w rzeczywistych przeglądarkach.
