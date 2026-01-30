@@ -71,13 +71,13 @@ Zarządzanie stanem odbywa się wyłącznie po stronie serwera w ramach cyklu ż
 ## 7. Integracja API
 Widok nie wykonuje żadnych bezpośrednich zapytań do API w celu pobrania danych. Integracja z backendem (Supabase) jest abstrakcyjna i sprowadza się do odczytania danych o sesji użytkownika, które zostały już przygotowane przez middleware.
 
-Przycisk logowania będzie linkiem do endpointu API, który inicjuje proces autoryzacji i logowania.
+Przycisk logowania będzie linkiem do strony logowania.
 - **Działanie**: Przekierowuje użytkownika do strony logowania.
 
 ## 8. Interakcje użytkownika
 - **Użytkownik niezalogowany (Gość)**:
   - Widzi przycisk "Zaloguj się" w nawigacji.
-  - Przycisk CTA w sekcji Hero ma tekst np. "Stwórz swoją kolekcję" i prowadzi do ścieżki logowania (`/api/auth/signin`).
+  - Przycisk CTA w sekcji Hero ma tekst np. "Stwórz swoją kolekcję" i prowadzi do strony logowania (`/login`).
 - **Użytkownik zalogowany**:
   - Zamiast przycisku logowania widzi ikonę swojego profilu w nawigacji.
   - Przycisk CTA w sekcji Hero ma tekst np. "Przejdź do kolekcji" i prowadzi bezpośrednio do widoku `/collection`.
@@ -104,12 +104,12 @@ Widok jest statyczny, więc ryzyko wystąpienia błędów jest minimalne.
 2. **Modyfikacja komponentu `Navigation.astro`**:
    - Jeśli komponent nie istnieje, stworzyć go w `/src/components/Navigation.astro`.
    - Dodać logikę odczytującą `Astro.locals.session` do sprawdzenia stanu zalogowania.
-   - Zaimplementować warunkowe renderowanie: pokazywać przycisk "Zaloguj się" (z linkiem do np. `/api/auth/signin`) lub menu użytkownika.
+   - Zaimplementować warunkowe renderowanie: pokazywać przycisk "Zaloguj się" (z linkiem do `/login`) lub menu użytkownika.
 3. **Aktualizacja strony `index.astro`**:
    - W pliku `/src/pages/index.astro` zaimportować i wykorzystać komponenty `Navigation.astro` i `HeroSection.astro` wewnątrz `Layout.astro`.
    - Pobrać stan zalogowania z `Astro.locals.session` i przekazać go jako prop do `HeroSection.astro`.
-4. **Stworzenie endpointu logowania (jeśli nie istnieje)**:
-   - Utworzyć plik API, który będzie obsługiwał przekierowanie do logowania przez Supabase.
+4. **Stworzenie strony logowania (jeśli nie istnieje)**:
+   - Utworzyć plik strony, który będzie obsługiwał logowanie przez Supabase.
 5. **Stylowanie**:
    - Użyć klas Tailwind CSS do ostylowania wszystkich nowych komponentów zgodnie z ogólnym designem aplikacji (Light Mode).
 6. **Weryfikacja i testy**:
