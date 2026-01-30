@@ -79,16 +79,16 @@ Kluczowa funkcjonalność – dodawanie perfum do kolekcji – została scentral
 ### Widok 3: Logowanie
 - **Nazwa widoku**: Strona Logowania
 - **Ścieżka widoku**: `/login` (lub inna ścieżka obsługująca autoryzację)
-- **Główny cel**: Umożliwienie użytkownikowi zalogowania się do aplikacji za pomocą dostawcy OAuth (Google) w celu uzyskania dostępu do chronionych zasobów, takich jak "Moja Kolekcja".
+- **Główny cel**: Umożliwienie użytkownikowi zalogowania się do aplikacji za pomocą Supabase Auth w celu uzyskania dostępu do chronionych zasobów, takich jak "Moja Kolekcja".
 - **Kluczowe informacje do wyświetlenia**:
-    - Wyraźny przycisk "Zaloguj się z Google".
+    - Wyraźny przycisk "Zaloguj się".
     - Informacja o korzyściach płynących z zalogowania (np. "Zaloguj się, aby zapisać swoją kolekcję").
 - **Kluczowe komponenty widoku**:
-    - Przycisk logowania Google.
+    - Przycisk logowania.
 - **UX, dostępność i względy bezpieczeństwa**:
     - **UX**: Proces logowania powinien być jak najprostszy i najszybszy. Użytkownik jest tu kierowany automatycznie, gdy próbuje uzyskać dostęp do chronionej strony, co minimalizuje tarcie.
     - **Dostępność**: Przycisk logowania musi być wyraźnie oznaczony i dostępny z klawiatury.
-    - **Bezpieczeństwo**: Cały proces logowania i obsługa tokenów jest zarządzany przez Supabase i protokół OAuth 2.0, co zapewnia wysoki poziom bezpieczeństwa. Aplikacja nigdy nie przechowuje haseł.
+    - **Bezpieczeństwo**: Cały proces logowania i obsługa tokenów jest zarządzany przez Supabase, co zapewnia wysoki poziom bezpieczeństwa. Aplikacja nigdy nie przechowuje haseł.
 
 ## 3. Mapa podróży użytkownika
 
@@ -97,7 +97,7 @@ Główny przepływ dla nowego, niezalogowanego użytkownika:
 1.  **Krok 1: Odkrycie**: Użytkownik ląduje na **Stronie Głównej (`/`)**, gdzie zapoznaje się z celem aplikacji.
 2.  **Krok 2: Zainteresowanie**: Użytkownik klika link "Moja Kolekcja" w nawigacji.
 3.  **Krok 3: Przekierowanie**: Aplikacja wykrywa brak sesji i automatycznie przekierowuje użytkownika na **Stronę Logowania (`/login`)**.
-4.  **Krok 4: Autoryzacja**: Na stronie logowania użytkownik klika "Zaloguj się z Google" i przechodzi przez standardowy proces autoryzacji OAuth.
+4.  **Krok 4: Autoryzacja**: Na stronie logowania użytkownik klika "Zaloguj się" i przechodzi przez standardowy proces autoryzacji.
 5.  **Krok 5: Powrót**: Po pomyślnym zalogowaniu, użytkownik jest automatycznie przekierowywany z powrotem na stronę **Moja Kolekcja (`/collection`)**.
 6.  **Krok 6: Pierwsze wrażenie**: Użytkownik widzi stronę "Moja Kolekcja" w ciemnym motywie, z komunikatem informującym, że jego kolekcja jest pusta, oraz z wyraźnym przyciskiem "Dodaj perfum".
 7.  **Krok 7: Inicjacja dodawania**: Użytkownik klika przycisk "Dodaj perfum", co otwiera **Modal Dodawania Perfum**.
@@ -114,7 +114,7 @@ Nawigacja jest zaimplementowana jako pojedynczy, stały komponent nagłówka, kt
     - **Po prawej**: Link "Moja Kolekcja" (link do `/collection`).
     - **Skrajnie po prawej (zależne od stanu autoryzacji)**:
         - **Użytkownik niezalogowany**: Przycisk "Zaloguj się".
-        - **Użytkownik zalogowany**: Awatar z konta Google, który po kliknięciu rozwija menu z opcją "Wyloguj".
+        - **Użytkownik zalogowany**: Awatar z ikoną, który po kliknięciu rozwija menu z opcją "Wyloguj".
 - **Zachowanie**:
     - **Zmiana motywu**: Tło nawigacji jest jasne na stronie głównej (`/`) i ciemne na stronie kolekcji (`/collection`), dopasowując się do motywu widoku.
     - **Wskaźnik aktywnej strony**: Link prowadzący do aktualnie wyświetlanej strony (`/collection`) jest wizualnie wyróżniony (np. innym tłem), aby imitować wciśnięty przycisk.

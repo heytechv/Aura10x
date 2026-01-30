@@ -29,7 +29,7 @@ Wersja v1 posiada uproszczoną nawigację:
 
 ### 3.1. Architektura
 *   Platforma: Web Desktop.
-*   Autoryzacja: Google Login (OAuth 2.0).
+*   Autoryzacja: Supabase Auth logowanie poprzez istniejące konta.
 *   Przechowywanie danych: **Cloud Only** (Supabase).
 *   Dane: Aplikacja będzie zasilana predefiniowaną bazą perfum (Seed Data).
 
@@ -46,7 +46,7 @@ Wersja v1 posiada uproszczoną nawigację:
 
 | ID | Tytuł | Opis | Kryteria Akceptacji |
 | :--- | :--- | :--- | :--- |
-| **US-001** | **Logowanie i Zapis Kolekcji** | Jako użytkownik chcę mieć możliwość przeglądania aplikacji jako gość, ale muszę się zalogować, aby stworzyć i zapisać moją kolekcję perfum. | 1. Niezalogowany użytkownik widzi komunikat o konieczności logowania przy próbie dodania perfum.<br>2. Logowanie odbywa się przez Google (OAuth).<br>3. Zapisana kolekcja jest powiązana z kontem użytkownika. |
+| **US-001** | **Logowanie i Zapis Kolekcji** | Jako użytkownik chcę mieć możliwość przeglądania aplikacji jako gość, ale muszę się zalogować, aby stworzyć i zapisać moją kolekcję perfum. | 1. Niezalogowany użytkownik widzi komunikat o konieczności logowania przy próbie dodania perfum.<br>2. Logowanie odbywa się przez Supabase Auth logowanie poprzez istniejące konta.<br>3. Zapisana kolekcja jest powiązana z kontem użytkownika. |
 | **US-002** | **Zarządzanie Kolekcją** | Jako zalogowany użytkownik chcę móc dodawać i usuwać perfumy z mojej osobistej kolekcji. | 1. Istnieje przycisk "Dodaj do kolekcji" na widoku ogólnej bazy perfum.<br>2. Na stronie "Moja Kolekcja" widoczne są tylko perfumy dodane przez użytkownika.<br>3. Użytkownik może usunąć dowolny zapach ze swojej kolekcji. |
 | **US-003** | **Przeglądanie Kolekcji** | Jako użytkownik chcę w estetyczny sposób przeglądać swoją kolekcję w dedykowanym, ciemnym interfejsie. | 1. Sekcja "Moja Kolekcja" używa "Midnight Mode".<br>2. Perfumy są wyświetlane w formie siatki. |
 

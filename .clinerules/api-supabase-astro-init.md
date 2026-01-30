@@ -101,4 +101,4 @@ interface ImportMeta {
 }
 ```
 
-This setup enables full SSR capabilities with Supabase, allowing you to handle authentication (including providers like Google) and manage user sessions securely on the server.
+This setup enables full SSR capabilities with Supabase, allowing you to handle authentication and manage user sessions securely on the server.

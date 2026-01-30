@@ -92,7 +92,7 @@ Dominujące akordy w danych perfumach.
 | :--- | :--- | :--- |
 | `id` | `uuid` | Unikalny identyfikator użytkownika, generowany przez Supabase Auth. |
 | `email` | `text` | Adres email użytkownika. |
-| `raw_user_meta_data` | `jsonb` | Metadane użytkownika, np. imię, awatar z Google. |
+| `raw_user_meta_data` | `jsonb` | Metadane użytkownika, np. login. |
 
 ### `user_collection` (Kolekcja Użytkownika)
 Prosta tabela łącząca, reprezentująca osobistą kolekcję perfum użytkownika.

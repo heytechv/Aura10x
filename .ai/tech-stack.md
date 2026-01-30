@@ -12,9 +12,9 @@ Niniejszy dokument opisuje stos technologiczny wykorzystany w procesie tworzenia
 ## 2. Backend & Baza Danych (BaaS)
 * **Supabase**: Platforma Backend-as-a-Service, która dostarcza:
     * **PostgreSQL**: Główna relacyjna baza danych przechowująca dane o perfumach oraz kolekcje użytkowników.
-    * **Auth**: Obsługa logowania (OAuth 2.0) przez Google, zintegrowana z mechanizmem RLS (Row Level Security).
+    * **Auth**: Obsługa logowania Supabase Auth poprzez istniejące już konta w Supabase, zintegrowana z mechanizmem RLS (Row Level Security).
     * **Storage**: Magazyn obiektowy (Object Storage) do hostowania zdjęć flakonów perfum.
-* **Authentication**: Uwierzytelnianie jest obsługiwane przez bibliotekę `@supabase/ssr`, która integruje Supabase Auth z logowaniem Google (OAuth) w środowisku renderowania po stronie serwera (SSR) Astro. Zarządza sesjami i cookies w oprogramowaniu pośredniczącym (middleware) i punktach końcowych API.
+* **Authentication**: Uwierzytelnianie jest obsługiwane przez bibliotekę `@supabase/ssr`, która integruje Supabase Auth z logowaniem w środowisku renderowania po stronie serwera (SSR) Astro. Zarządza sesjami i cookies w oprogramowaniu pośredniczącym (middleware) i punktach końcowych API.
 
 ## 3. CI/CD i Hosting:
 * **Github Actions**: do tworzenia pipeline’ów CI/CD

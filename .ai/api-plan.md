@@ -137,9 +137,9 @@
 
 ## 3. Authentication and Authorization
 
-- **Mechanism**: Authentication will be handled via Supabase Auth, integrating with Google OAuth 2.0. The Astro application will use the `@supabase/ssr` library to manage sessions on the server.
+- **Mechanism**: Authentication will be handled via Supabase Auth using existing accounts created on Supabase. The Astro application will use the `@supabase/ssr` library to manage sessions on the server.
 - **Implementation**:
-  1. The client-side application initiates the Google OAuth flow.
+  1. The client-side application initiates the Supabase Auth login flow.
   2. Upon successful login, Supabase returns a session which is stored securely in server-side cookies, managed by Astro's cookie utilities and `@supabase/ssr`.
   3. Astro middleware will run on every request to a protected endpoint (e.g., under `/api/collection`). This middleware will use `@supabase/ssr` to validate the session from the cookies.
   4. If the session is valid, the middleware initializes the Supabase client with the user's access token and attaches it to the request context (`context.locals.supabase`).

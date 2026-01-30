@@ -71,10 +71,8 @@ Zarządzanie stanem odbywa się wyłącznie po stronie serwera w ramach cyklu ż
 ## 7. Integracja API
 Widok nie wykonuje żadnych bezpośrednich zapytań do API w celu pobrania danych. Integracja z backendem (Supabase) jest abstrakcyjna i sprowadza się do odczytania danych o sesji użytkownika, które zostały już przygotowane przez middleware.
 
-Przycisk logowania będzie linkiem do endpointu API, który inicjuje proces autoryzacji OAuth:
-- **Ścieżka**: `/api/auth/signin` (przykładowa, do implementacji)
-- **Metoda**: `POST`
-- **Działanie**: Przekierowuje użytkownika do strony logowania Google.
+Przycisk logowania będzie linkiem do endpointu API, który inicjuje proces autoryzacji i logowania.
+- **Działanie**: Przekierowuje użytkownika do strony logowania.
 
 ## 8. Interakcje użytkownika
 - **Użytkownik niezalogowany (Gość)**:
@@ -111,7 +109,7 @@ Widok jest statyczny, więc ryzyko wystąpienia błędów jest minimalne.
    - W pliku `/src/pages/index.astro` zaimportować i wykorzystać komponenty `Navigation.astro` i `HeroSection.astro` wewnątrz `Layout.astro`.
    - Pobrać stan zalogowania z `Astro.locals.session` i przekazać go jako prop do `HeroSection.astro`.
 4. **Stworzenie endpointu logowania (jeśli nie istnieje)**:
-   - Utworzyć plik API route (np. `/src/pages/api/auth/signin.ts`), który będzie obsługiwał przekierowanie do autoryzacji Google przez Supabase.
+   - Utworzyć plik API, który będzie obsługiwał przekierowanie do logowania przez Supabase.
 5. **Stylowanie**:
    - Użyć klas Tailwind CSS do ostylowania wszystkich nowych komponentów zgodnie z ogólnym designem aplikacji (Light Mode).
 6. **Weryfikacja i testy**:
