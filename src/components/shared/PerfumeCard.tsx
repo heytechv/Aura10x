@@ -28,6 +28,7 @@ export const PerfumeCard = ({
   isDisabled = false,
 }: PerfumeCardProps) => {
   const perfumeData = isCollectionItem(perfume) ? perfume.perfume : perfume;
+  const perfumeId = isCollectionItem(perfume) ? perfume.perfume_id : perfume.id;
 
   const handleRemove = () => {
     if (onRemove && isCollectionItem(perfume)) {
@@ -42,7 +43,7 @@ export const PerfumeCard = ({
   };
 
   return (
-    <Card className="overflow-hidden transition-all hover:scale-105">
+    <Card className="overflow-hidden transition-all hover:scale-105" data-test-id={`perfume-card-${perfumeId}`}>
       <CardHeader className="p-0">
         <a href={`/perfume/${perfumeData.slug}`}>
           <img
@@ -66,6 +67,7 @@ export const PerfumeCard = ({
             className="w-full"
             onClick={handleRemove}
             disabled={isProcessing || isDisabled}
+            data-test-id="card-remove-btn"
           >
             {isProcessing ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -82,6 +84,7 @@ export const PerfumeCard = ({
             className="w-full"
             onClick={handleAdd}
             disabled={isProcessing || isDisabled}
+            data-test-id="card-add-btn"
           >
             {isProcessing ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

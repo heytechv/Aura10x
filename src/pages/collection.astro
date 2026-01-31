@@ -5,6 +5,6 @@ import { CollectionContainer } from "@/components/collection/CollectionContainer
 
 <Layout title="My Collection" theme="dark">
   <main class="container mx-auto px-4 py-8">
-    <CollectionContainer client:load />
+    <CollectionContainer client:only="react" />
   </main>
 </Layout>

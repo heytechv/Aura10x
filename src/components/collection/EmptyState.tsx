@@ -11,7 +11,7 @@ export const EmptyState = ({ onAddClick }: EmptyStateProps) => {
       <p className="mt-2 text-muted-foreground">
         Zacznij budować swoją osobistą bibliotekę zapachów.
       </p>
-      <Button onClick={onAddClick} className="mt-6">
+      <Button onClick={onAddClick} className="mt-6" data-test-id="empty-state-add-btn">
         Dodaj pierwsze perfumy
       </Button>
     </div>

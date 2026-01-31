@@ -11,7 +11,7 @@ const isLoggedIn = !!user;
             <span class="font-bold">AURA</span>
         </a>
         <nav class="flex items-center gap-6 text-sm">
-            <a class="transition-colors hover:text-foreground/80 text-foreground/60" href="/collection">
+            <a class="transition-colors hover:text-foreground/80 text-foreground/60" href="/collection" data-test-id="nav-collection-link">
                 Moja Kolekcja
             </a>
         </nav>
@@ -20,14 +20,14 @@ const isLoggedIn = !!user;
             {
                 !isLoggedIn ? (
                     <a href="/login">
-                        <Button variant="outline">Zaloguj się</Button>
+                        <Button variant="outline" data-test-id="nav-login-btn">Zaloguj się</Button>
                     </a>
                 ) : (
                     <>
                         <div class="font-medium hidden sm:block">
                             Witaj, {user?.email?.split('@')[0]}
                         </div>
-                        <button id="logout-btn" class="text-sm font-medium transition-colors hover:text-foreground/80 text-foreground/60">
+                        <button id="logout-btn" class="text-sm font-medium transition-colors hover:text-foreground/80 text-foreground/60" data-test-id="nav-logout-btn">
                             Wyloguj się
                         </button>
                     </>

@@ -102,6 +102,7 @@ export default function LoginForm() {
                   required
                   className="pl-9 h-10"
                   disabled={isLoading}
+                  data-test-id="login-email-input"
                 />
               </div>
             </div>
@@ -122,11 +123,12 @@ export default function LoginForm() {
                   placeholder="Wprowadź swoje hasło"
                   className="pl-9 h-10"
                   disabled={isLoading}
+                  data-test-id="login-password-input"
                 />
               </div>
             </div>
 
-            <Button type="submit" className="w-full h-10 font-medium" disabled={isLoading}>
+            <Button type="submit" className="w-full h-10 font-medium" disabled={isLoading} data-test-id="login-submit-btn">
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

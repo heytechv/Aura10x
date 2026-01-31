@@ -6,4 +6,8 @@ node_modules/
 
 # environment variables
 .env
+.env.test
 .env.production
+
+test-results/
+playwright-report/
