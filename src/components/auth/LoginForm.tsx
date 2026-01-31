@@ -1,54 +1,32 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail, Lock, ArrowLeft, Loader2 } from "lucide-react";
+import { loginSchema, type LoginFormInputs } from "./loginForm.schema";
+import { loginUser } from "@/lib/services/auth.service";
 
 export default function LoginForm() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormInputs>({
+    resolver: zodResolver(loginSchema),
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError(null);
-
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-
-    // Basic client-side validation
-    if (!email || !email.includes("@")) {
-      setError("Nieprawidłowy format adresu email.");
-      setIsLoading(false);
-      return;
-    }
-    if (!password) {
-      setError("Hasło jest wymagane.");
-      setIsLoading(false);
-      return;
-    }
-
+  const onSubmit = async (data: LoginFormInputs) => {
     try {
-      const response = await fetch("/api/auth/signin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Wystąpił błąd podczas logowania");
-      }
-
-      // Redirect logic
+      await loginUser(data);
       const params = new URLSearchParams(window.location.search);
       const redirectPath = params.get("redirect") || "/";
       window.location.href = redirectPath;
-      
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Wystąpił nieoczekiwany błąd");
-      setIsLoading(false);
+      setError("root.serverError", {
+        type: "custom",
+        message: err instanceof Error ? err.message : "Wystąpił nieoczekiwany błąd",
+      });
     }
   };
 
@@ -79,10 +57,10 @@ export default function LoginForm() {
 
         {/* Card containing the form */}
         <div className="bg-card text-card-foreground rounded-xl border shadow-sm p-6 sm:p-8">
-          <form className="space-y-5" onSubmit={handleSubmit}>
-            {error && (
+          <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+            {errors.root?.serverError && (
               <div className="p-3 text-sm text-red-500 bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-md">
-                {error}
+                {errors.root.serverError.message}
               </div>
             )}
             
@@ -96,15 +74,17 @@ export default function LoginForm() {
                 </div>
                 <Input
                   id="email"
-                  name="email"
                   type="email"
                   placeholder="Wprowadź swój email"
-                  required
                   className="pl-9 h-10"
-                  disabled={isLoading}
+                  disabled={isSubmitting}
                   data-test-id="login-email-input"
+                  {...register("email")}
                 />
               </div>
+              {errors.email && (
+                <p className="text-sm text-red-500 font-medium">{errors.email.message}</p>
+              )}
             </div>
             
             <div className="space-y-2">
@@ -117,19 +97,21 @@ export default function LoginForm() {
                 </div>
                 <Input 
                   id="password"
-                  name="password"
                   type="password" 
-                  required 
                   placeholder="Wprowadź swoje hasło"
                   className="pl-9 h-10"
-                  disabled={isLoading}
+                  disabled={isSubmitting}
                   data-test-id="login-password-input"
+                  {...register("password")}
                 />
               </div>
+              {errors.password && (
+                <p className="text-sm text-red-500 font-medium">{errors.password.message}</p>
+              )}
             </div>
 
-            <Button type="submit" className="w-full h-10 font-medium" disabled={isLoading} data-test-id="login-submit-btn">
-              {isLoading ? (
+            <Button type="submit" className="w-full h-10 font-medium" disabled={isSubmitting} data-test-id="login-submit-btn">
+              {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Logowanie...
