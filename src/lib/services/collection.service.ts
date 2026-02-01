@@ -93,10 +93,7 @@ export const addPerfumeToCollection = async (
     const MAX_FREE_ITEMS = 10;
     // Assuming everyone is on "Free" tier for MVP v1
     if (collectionCount !== null && collectionCount >= MAX_FREE_ITEMS) {
-      throw new AppError(
-        `Free tier limit reached (${MAX_FREE_ITEMS}). Upgrade to Premium to add more.`,
-        403
-      );
+      throw new AppError(`Free tier limit reached (${MAX_FREE_ITEMS}). Upgrade to Premium to add more.`, 403);
     }
 
     // 4. Add the new perfume to the collection
@@ -121,11 +118,7 @@ export const addPerfumeToCollection = async (
         .eq("perfumes.brand_id", perfume.brand_id);
 
       if (brandCount === 3) {
-        const { data: brand } = await supabase
-          .from("brands")
-          .select("name")
-          .eq("id", perfume.brand_id)
-          .single();
+        const { data: brand } = await supabase.from("brands").select("name").eq("id", perfume.brand_id).single();
 
         if (brand) {
           badgeUnlocked = `Ambasador Marki ${brand.name}`;
