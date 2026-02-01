@@ -1,104 +1,75 @@
-# 10x Astro Starter (MVP v1)
+# AURA (MVP v1)
 
-A modern, opinionated starter template for building fast, accessible, and AI-friendly web applications.
+A digital perfume collection manager designed to help users curate and browse their personal fragrance shelf.
+
+## Overview
+
+AURA is a web desktop application that addresses the "paradox of choice" faced by perfume enthusiasts. By providing a dedicated, aesthetic interface ("Midnight Mode") for your collection, it helps you rediscover and appreciate the fragrances you own.
+
+**Key Features:**
+- **My Collection**: Build your digital perfume shelf by adding fragrances from our global database.
+- **Midnight Mode**: A dedicated dark mode interface for browsing your collection.
+- **Cloud Sync**: Your collection is securely stored and accessible from any desktop browser via Supabase Auth.
+- **Search & Discover**: Find perfumes to add to your collection easily.
 
 ## Tech Stack
 
-- [Astro](https://astro.build/) v5.5.5 - Modern web framework for building fast, content-focused websites
-- [React](https://react.dev/) v19.0.0 - UI library for building interactive components
-- [TypeScript](https://www.typescriptlang.org/) v5 - Type-safe JavaScript
-- [Tailwind CSS](https://tailwindcss.com/) v4.0.17 - Utility-first CSS framework
-
-### Deployment
-
-- [Cloudflare Pages](https://pages.cloudflare.com/) - Edge-native deployment platform
-
-### Testing
-
-- [Vitest](https://vitest.dev/) - Blazing fast unit test framework
-- [React Testing Library](https://testing-library.com/) - React component testing utilities
-- [Playwright](https://playwright.dev/) - End-to-end testing for modern web apps
-
-## Prerequisites
-
-- Node.js v22.14.0 (as specified in `.nvmrc`)
-- npm (comes with Node.js)
+- **Framework**: [Astro](https://astro.build/) v5
+- **Frontend**: [React](https://react.dev/) v19, [Tailwind CSS](https://tailwindcss.com/) v4
+- **Backend/DB**: [Supabase](https://supabase.com/) (PostgreSQL, Auth)
+- **Testing**: Vitest, Playwright
 
 ## Getting Started
 
-1. Clone the repository:
+### Prerequisites
 
-```bash
-git clone https://github.com/przeprogramowani/10x-astro-starter.git
-cd 10x-astro-starter
-```
+- Node.js v22.14.0 (see `.nvmrc`)
+- npm
 
-2. Install dependencies:
+### Installation
 
-```bash
-npm install
-```
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/heytechv/Aura10x.git
+    cd Aura10x
+    ```
 
-3. Run the development server:
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
 
-```bash
-npm run dev
-```
+3.  Environment Setup:
+    Copy `.env.example` to `.env` and fill in your Supabase credentials.
+    ```bash
+    cp .env.example .env
+    ```
 
-4. Build for production:
+    Required variables:
+    - `SUPABASE_URL`
+    - `SUPABASE_KEY`
 
-```bash
-npm run build
-```
+4.  Run the development server:
+    ```bash
+    npm run dev
+    ```
 
-## Available Scripts
+## Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-- `npm run lint:fix` - Fix ESLint issues
+- `npm run test` - Run unit tests (Vitest)
+- `npm run test:e2e` - Run E2E tests (Playwright)
+- `npm run lint` - Run linting
 
 ## Project Structure
 
-```md
-.
-├── src/
-│   ├── layouts/    # Astro layouts
-│   ├── pages/      # Astro pages
-│   │   └── api/    # API endpoints
-│   ├── components/ # UI components (Astro & React)
-│   └── assets/     # Static assets
-├── public/         # Public assets
-```
+- `src/pages` - Application routes
+- `src/components` - Astro and React components
+- `src/lib/services` - Business logic and Supabase integrations
+- `src/db` - Database types and clients
+- `.ai/prd.md` - Product Requirements Document
 
-## AI Development Support
+## Documentation
 
-This project is configured with AI development tools to enhance the development experience, providing guidelines for:
-
-- Project structure
-- Coding practices
-- Frontend development
-- Styling with Tailwind
-- Accessibility best practices
-- Astro and React guidelines
-
-### Cursor IDE
-
-The project includes AI rules in `.cursor/rules/` directory that help Cursor IDE understand the project structure and provide better code suggestions.
-
-### GitHub Copilot
-
-AI instructions for GitHub Copilot are available in `.github/copilot-instructions.md`
-
-### Windsurf
-
-The `.windsurfrules` file contains AI configuration for Windsurf.
-
-## Contributing
-
-Please follow the AI guidelines and coding practices defined in the AI configuration files when contributing to this project.
-
-## License
-
-MIT
+For detailed requirements and specifications, please refer to the [PRD](.ai/prd.md).
