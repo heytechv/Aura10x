@@ -64,6 +64,8 @@ Z zakresu testów wyłączone są:
 | COL-03 | Dodanie perfum do kolekcji | Modal zamyka się, lista odświeża się, nowe perfumy widoczne | Wysoki |
 | COL-04 | Próba dodania duplikatu | Zablokowanie akcji lub obsługa błędu (idempotentność) | Średni |
 | COL-05 | Usunięcie perfum z kolekcji | Element znika z listy, aktualizacja stanu UI | Wysoki |
+| COL-06 | Przekroczenie limitu (Tier Logic) | Próba dodania >10 perfum zwraca błąd i wyświetla komunikat (Toast) | Średni |
+| COL-07 | Odblokowanie odznaki (Bundle Logic) | Dodanie 3 perfum tej samej marki wyświetla Toast o odznace | Niski |
 
 ### 4.3. Katalog Perfum
 | ID | Scenariusz | Oczekiwany rezultat | Priorytet |

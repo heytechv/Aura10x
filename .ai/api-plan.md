@@ -104,7 +104,8 @@
       "user_id": "f1g2h3i4-j5k6-...",
       "perfume_id": "a1b2c3d4-e5f6-...",
       "added_at": "2024-07-28T10:00:00Z"
-    }
+    },
+    "badgeUnlocked": "Brand Ambassador Dior"
   }
   ```
 - **Success Codes**:
@@ -112,6 +113,7 @@
 - **Error Codes**:
   - `400 Bad Request`: Invalid request body or missing `perfume_id`.
   - `401 Unauthorized`: User is not authenticated.
+  - `403 Forbidden`: Free tier limit reached (max 10 perfumes).
   - `404 Not Found`: The specified `perfume_id` does not exist in the public catalog.
   - `409 Conflict`: The user already has this perfume in their collection.
 

@@ -69,7 +69,8 @@ Kluczowa funkcjonalność – dodawanie perfum do kolekcji – została scentral
     - **UX**:
         - Scentralizowany i jedyny sposób dodawania perfum.
         - Paginacja "Załaduj więcej" zapobiega ładowaniu całej bazy na raz.
-        - Jasna informacja zwrotna o pomyślnym dodaniu (zamknięcie modala i animacja w siatce) oraz o błędach (dedykowany modal).
+        - Jasna informacja zwrotna o pomyślnym dodaniu (Toast - powiadomienie sukcesu) oraz o błędach (czerwony Toast, np. przy przekroczeniu limitu).
+        - Specjalne wyróżnienie wizualne (Toast z odznaką) przy skompletowaniu zestawu marki.
     - **Dostępność**:
         - Prawidłowe zarządzanie fokusem – po otwarciu modala fokus trafia do pola wyszukiwania.
         - Możliwość zamknięcia modala klawiszem `Escape`.

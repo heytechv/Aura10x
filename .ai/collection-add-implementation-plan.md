@@ -28,6 +28,7 @@ Ten punkt końcowy umożliwia uwierzytelnionemu użytkownikowi dodanie nowych pe
   export type AddPerfumeToCollectionResponseDto = {
     message: string;
     data: UserCollection;
+    badgeUnlocked?: string;
   };
   ```
 
@@ -40,12 +41,14 @@ Ten punkt końcowy umożliwia uwierzytelnionemu użytkownikowi dodanie nowych pe
       "user_id": "f1g2h3i4-j5k6-...",
       "perfume_id": "a1b2c3d4-e5f6-...",
       "added_at": "2024-07-28T10:00:00Z"
-    }
+    },
+    "badgeUnlocked": "Brand Ambassador Dior"
   }
   ```
 - **Odpowiedzi błędów**:
   - `400 Bad Request`: Nieprawidłowe lub brakujące `perfume_id`.
   - `401 Unauthorized`: Użytkownik nie jest uwierzytelniony.
+  - `403 Forbidden`: Limit darmowego konta osiągnięty.
   - `404 Not Found`: `perfume_id` nie istnieje w tabeli `perfumes`.
   - `409 Conflict`: Użytkownik już posiada te perfumy w kolekcji.
   - `500 Internal Server Error`: Wewnętrzny błąd serwera.
@@ -60,8 +63,10 @@ Ten punkt końcowy umożliwia uwierzytelnionemu użytkownikowi dodanie nowych pe
 7. Metoda serwisowa wykonuje następujące operacje w ramach transakcji:
    a. Sprawdza, czy perfumy o podanym `perfume_id` istnieją w tabeli `perfumes`. Jeśli nie, zgłasza błąd `NotFound`.
    b. Sprawdza, czy kombinacja `user_id` i `perfume_id` już istnieje w tabeli `user_collection`. Jeśli tak, zgłasza błąd `Conflict`.
-   c. Wstawia nowy wiersz do tabeli `user_collection`.
-8. Handler API przechwytuje ewentualne błędy z serwisu i mapuje je na odpowiednie kody statusu HTTP (`404`, `409`).
+   c. **Sprawdza limit konta**: Weryfikuje, czy użytkownik nie przekroczył limitu 10 perfum (darmowy tier). Jeśli tak, zgłasza błąd `403`.
+   d. Wstawia nowy wiersz do tabeli `user_collection`.
+   e. **Sprawdza logikę zestawów (Bundle)**: Weryfikuje, czy użytkownik skompletował 3 zapachy tej samej marki. Jeśli tak, zwraca informację o odblokowanej odznace.
+8. Handler API przechwytuje ewentualne błędy z serwisu i mapuje je na odpowiednie kody statusu HTTP (`403`, `404`, `409`).
 9. W przypadku sukcesu, handler formatuje odpowiedź DTO i zwraca ją z kodem `201 Created`.
 
 ## 6. Względy bezpieczeństwa
