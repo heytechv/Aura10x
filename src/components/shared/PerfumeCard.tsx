@@ -45,13 +45,11 @@ export const PerfumeCard = ({
   return (
     <Card className="overflow-hidden transition-all hover:scale-105" data-test-id={`perfume-card-${perfumeId}`}>
       <CardHeader className="p-0">
-        <a href={`/perfume/${perfumeData.slug}`}>
-          <img
-            src={perfumeData.image_path ?? "/placeholder.svg"}
-            alt={perfumeData.name}
-            className="aspect-square w-full object-cover"
-          />
-        </a>
+        <img
+          src={perfumeData.image_path ?? "/placeholder.svg"}
+          alt={perfumeData.name}
+          className="aspect-square w-full object-cover"
+        />
       </CardHeader>
       <CardContent className="p-4">
         <h3 className="font-semibold truncate">{perfumeData.name}</h3>
