@@ -1,11 +1,5 @@
 import { useEffect } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PerfumeCard } from "@/components/shared/PerfumeCard";
@@ -26,26 +20,21 @@ const debounce = <F extends (...args: any[]) => any>(func: F, waitFor: number) =
   return debounced;
 };
 
-type AddPerfumeModalProps = {
+interface AddPerfumeModalProps {
   isOpen: boolean;
   onClose: () => void;
   onPerfumeAdded: (response: AddPerfumeToCollectionResponseDto) => void;
   existingCollectionIds: Set<string>;
-};
+}
 
-export const AddPerfumeModal = ({
-  isOpen,
-  onClose,
-  onPerfumeAdded,
-  existingCollectionIds,
-}: AddPerfumeModalProps) => {
+export const AddPerfumeModal = ({ isOpen, onClose, onPerfumeAdded, existingCollectionIds }: AddPerfumeModalProps) => {
   const { status, items, search, loadMore, hasMore, addPerfume } = usePublicPerfumes(existingCollectionIds);
 
   const debouncedSearch = debounce(search, 500);
 
   useEffect(() => {
     if (isOpen) {
-      search('');
+      search("");
     }
   }, [isOpen, search]);
 
@@ -63,9 +52,7 @@ export const AddPerfumeModal = ({
       <DialogContent className="sm:max-w-3xl max-h-[80vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>Dodaj perfumy do kolekcji</DialogTitle>
-          <DialogDescription>
-            Wyszukaj perfumy, aby dodać je do swojej osobistej kolekcji.
-          </DialogDescription>
+          <DialogDescription>Wyszukaj perfumy, aby dodać je do swojej osobistej kolekcji.</DialogDescription>
         </DialogHeader>
         <div className="px-4">
           <Input
@@ -76,7 +63,7 @@ export const AddPerfumeModal = ({
         </div>
         <div className="p-4 overflow-y-auto">
           {(() => {
-            if (status === 'loading' && items.length === 0) {
+            if (status === "loading" && items.length === 0) {
               return (
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {Array.from({ length: 6 }).map((_, index) => (
@@ -85,15 +72,15 @@ export const AddPerfumeModal = ({
                 </div>
               );
             }
-            if (status === 'error') {
+            if (status === "error") {
               return <p>Błąd ładowania perfum.</p>;
             }
-            if (status === 'success' && items.length === 0) {
+            if (status === "success" && items.length === 0) {
               return <p>Nie znaleziono wyników.</p>;
             }
             return (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4" data-test-id="modal-results-grid">
-                {items.map(item => (
+                {items.map((item) => (
                   <PerfumeCard
                     key={item.id}
                     perfume={item}
@@ -106,9 +93,9 @@ export const AddPerfumeModal = ({
               </div>
             );
           })()}
-          
-          {status === 'loading' && items.length > 0 && <p className="text-center mt-4">Ładowanie więcej...</p>}
-          {hasMore && status !== 'loading' && (
+
+          {status === "loading" && items.length > 0 && <p className="text-center mt-4">Ładowanie więcej...</p>}
+          {hasMore && status !== "loading" && (
             <Button onClick={loadMore} variant="outline" className="w-full mt-4">
               Załaduj więcej
             </Button>

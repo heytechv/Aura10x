@@ -1,7 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { getPublicPerfumes } from './perfume.service';
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { getPublicPerfumes } from "./perfume.service";
 
-describe('PerfumeService', () => {
+describe("PerfumeService", () => {
   let mockSupabase: any;
   let mockQueryBuilder: any;
 
@@ -12,7 +12,7 @@ describe('PerfumeService', () => {
       range: vi.fn().mockReturnThis(),
       ilike: vi.fn().mockReturnThis(),
       // Mock 'then' to simulate Promise/await behavior
-      then: vi.fn(), 
+      then: vi.fn(),
     };
 
     mockSupabase = {
@@ -32,24 +32,21 @@ describe('PerfumeService', () => {
     });
   };
 
-  describe('getPublicPerfumes', () => {
-    it('should select correct columns including nested brand', async () => {
+  describe("getPublicPerfumes", () => {
+    it("should select correct columns including nested brand", async () => {
       setupSuccessResponse([], 0);
       const params = { limit: 10, page: 1 };
-      
+
       await getPublicPerfumes(mockSupabase, params);
 
-      expect(mockSupabase.from).toHaveBeenCalledWith('perfumes');
-      expect(mockQueryBuilder.select).toHaveBeenCalledWith(
-        expect.stringContaining('brand:brands'),
-        { count: 'exact' }
-      );
+      expect(mockSupabase.from).toHaveBeenCalledWith("perfumes");
+      expect(mockQueryBuilder.select).toHaveBeenCalledWith(expect.stringContaining("brand:brands"), { count: "exact" });
     });
 
-    it('should calculate correct range for pagination (page 1)', async () => {
+    it("should calculate correct range for pagination (page 1)", async () => {
       const mockData = [
-        { id: 1, name: 'Perfume 1' },
-        { id: 2, name: 'Perfume 2' },
+        { id: 1, name: "Perfume 1" },
+        { id: 2, name: "Perfume 2" },
       ];
       const mockCount = 10;
       setupSuccessResponse(mockData, mockCount);
@@ -59,12 +56,12 @@ describe('PerfumeService', () => {
 
       // page 1, limit 10 => from 0, to 9
       expect(mockQueryBuilder.range).toHaveBeenCalledWith(0, 9);
-      
+
       expect(result.perfumes).toEqual(mockData);
       expect(result.totalItems).toEqual(mockCount);
     });
 
-    it('should calculate correct range for pagination (page 2)', async () => {
+    it("should calculate correct range for pagination (page 2)", async () => {
       setupSuccessResponse([], 10);
 
       const params = { limit: 10, page: 2 };
@@ -74,17 +71,17 @@ describe('PerfumeService', () => {
       expect(mockQueryBuilder.range).toHaveBeenCalledWith(10, 19);
     });
 
-    it('should apply ilike filter when query is provided', async () => {
-      const query = 'Chanel';
+    it("should apply ilike filter when query is provided", async () => {
+      const query = "Chanel";
       setupSuccessResponse([], 0);
 
       const params = { limit: 10, page: 1, query };
       await getPublicPerfumes(mockSupabase, params);
 
-      expect(mockQueryBuilder.ilike).toHaveBeenCalledWith('name', `%${query}%`);
+      expect(mockQueryBuilder.ilike).toHaveBeenCalledWith("name", `%${query}%`);
     });
 
-    it('should not apply ilike filter when query is empty', async () => {
+    it("should not apply ilike filter when query is empty", async () => {
       setupSuccessResponse([], 0);
 
       const params = { limit: 10, page: 1 }; // no query
@@ -93,23 +90,23 @@ describe('PerfumeService', () => {
       expect(mockQueryBuilder.ilike).not.toHaveBeenCalled();
     });
 
-    it('should throw an error when Supabase returns an error', async () => {
-      const errorMessage = 'Database connection failed';
+    it("should throw an error when Supabase returns an error", async () => {
+      const errorMessage = "Database connection failed";
       setupErrorResponse(errorMessage);
 
       const params = { limit: 10, page: 1 };
-      
+
       await expect(getPublicPerfumes(mockSupabase, params)).rejects.toThrow(errorMessage);
     });
 
-    it('should default totalItems to 0 if count is null', async () => {
-        // Force count to be undefined/null
-        mockQueryBuilder.then.mockImplementation((resolve: any) => {
-            return Promise.resolve({ data: [], error: null, count: null }).then(resolve);
-        });
+    it("should default totalItems to 0 if count is null", async () => {
+      // Force count to be undefined/null
+      mockQueryBuilder.then.mockImplementation((resolve: any) => {
+        return Promise.resolve({ data: [], error: null, count: null }).then(resolve);
+      });
 
-        const result = await getPublicPerfumes(mockSupabase, { limit: 10, page: 1 });
-        expect(result.totalItems).toBe(0);
+      const result = await getPublicPerfumes(mockSupabase, { limit: 10, page: 1 });
+      expect(result.totalItems).toBe(0);
     });
   });
 });

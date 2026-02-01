@@ -4,54 +4,65 @@ import { Button } from "@/components/ui/button";
 const { user } = Astro.locals;
 const isLoggedIn = !!user;
 ---
-<header class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-    <div class="container mx-auto flex h-14 max-w-screen-2xl items-center">
-        <a class="mr-6 flex items-center space-x-2" href="/">
-            <img src="/favicon.png" alt="AURA Logo" class="h-6 w-6">
-            <span class="font-bold">AURA</span>
-        </a>
-        <nav class="flex items-center gap-6 text-sm">
-            <a class="transition-colors hover:text-foreground/80 text-foreground/60" href="/collection" data-test-id="nav-collection-link">
-                Moja Kolekcja
+
+<header
+  class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+>
+  <div class="container mx-auto flex h-14 max-w-screen-2xl items-center">
+    <a class="mr-6 flex items-center space-x-2" href="/">
+      <img src="/favicon.png" alt="AURA Logo" class="h-6 w-6" />
+      <span class="font-bold">AURA</span>
+    </a>
+    <nav class="flex items-center gap-6 text-sm">
+      <a
+        class="transition-colors hover:text-foreground/80 text-foreground/60"
+        href="/collection"
+        data-test-id="nav-collection-link"
+      >
+        Moja Kolekcja
+      </a>
+    </nav>
+    <div class="flex flex-1 items-center justify-end space-x-4">
+      <nav class="flex items-center gap-4">
+        {
+          !isLoggedIn ? (
+            <a href="/login">
+              <Button variant="outline" data-test-id="nav-login-btn">
+                Zaloguj się
+              </Button>
             </a>
-        </nav>
-        <div class="flex flex-1 items-center justify-end space-x-4">
-            <nav class="flex items-center gap-4">
-            {
-                !isLoggedIn ? (
-                    <a href="/login">
-                        <Button variant="outline" data-test-id="nav-login-btn">Zaloguj się</Button>
-                    </a>
-                ) : (
-                    <>
-                        <div class="font-medium hidden sm:block">
-                            Witaj, {user?.email?.split('@')[0]}
-                        </div>
-                        <button id="logout-btn" class="text-sm font-medium transition-colors hover:text-foreground/80 text-foreground/60" data-test-id="nav-logout-btn">
-                            Wyloguj się
-                        </button>
-                    </>
-                )
-            }
-            </nav>
-        </div>
+          ) : (
+            <>
+              <div class="font-medium hidden sm:block">Witaj, {user?.email?.split("@")[0]}</div>
+              <button
+                id="logout-btn"
+                class="text-sm font-medium transition-colors hover:text-foreground/80 text-foreground/60"
+                data-test-id="nav-logout-btn"
+              >
+                Wyloguj się
+              </button>
+            </>
+          )
+        }
+      </nav>
     </div>
+  </div>
 </header>
 
 <script>
-    document.addEventListener('astro:page-load', () => {
-        const logoutBtn = document.getElementById('logout-btn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', async () => {
-                try {
-                    const response = await fetch('/api/auth/signout', { method: 'POST' });
-                    if (response.ok) {
-                        window.location.href = '/';
-                    }
-                } catch (error) {
-                    console.error('Logout failed', error);
-                }
-            });
+  document.addEventListener("astro:page-load", () => {
+    const logoutBtn = document.getElementById("logout-btn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", async () => {
+        try {
+          const response = await fetch("/api/auth/signout", { method: "POST" });
+          if (response.ok) {
+            window.location.href = "/";
+          }
+        } catch (error) {
+          console.error("Logout failed", error);
         }
-    });
+      });
+    }
+  });
 </script>

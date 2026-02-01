@@ -3,7 +3,7 @@ import type {
   PerfumeListItemViewModel,
   PaginationDetails,
   PaginatedPerfumesResponseDto,
-  AddPerfumeToCollectionResponseDto
+  AddPerfumeToCollectionResponseDto,
 } from "@/types";
 
 const API_LIMIT = 10;
@@ -31,14 +31,16 @@ export const usePublicPerfumes = (existingCollectionIds: Set<string>) => {
       if (!response.ok) throw new Error("Failed to fetch perfumes");
 
       const data: PaginatedPerfumesResponseDto = await response.json();
-      
-      const viewModels = data.data.map((perfume): PerfumeListItemViewModel => ({
-        ...perfume,
-        isInCollection: collectionIdsRef.current.has(perfume.id),
-        isBeingAdded: false,
-      }));
 
-      setItems(prev => page === 1 ? viewModels : [...prev, ...viewModels]);
+      const viewModels = data.data.map(
+        (perfume): PerfumeListItemViewModel => ({
+          ...perfume,
+          isInCollection: collectionIdsRef.current.has(perfume.id),
+          isBeingAdded: false,
+        })
+      );
+
+      setItems((prev) => (page === 1 ? viewModels : [...prev, ...viewModels]));
       setPagination(data.pagination);
       setStatus("success");
     } catch (error) {
@@ -57,31 +59,36 @@ export const usePublicPerfumes = (existingCollectionIds: Set<string>) => {
       fetchPerfumes(query, pagination.currentPage + 1);
     }
   }, [hasMore, pagination, query, fetchPerfumes]);
-  
-  const search = useCallback((newQuery: string) => {
-    setQuery(newQuery);
-    setItems([]);
-    setPagination(null);
-    fetchPerfumes(newQuery, 1);
-  }, [fetchPerfumes]);
+
+  const search = useCallback(
+    (newQuery: string) => {
+      setQuery(newQuery);
+      setItems([]);
+      setPagination(null);
+      fetchPerfumes(newQuery, 1);
+    },
+    [fetchPerfumes]
+  );
 
   const addPerfume = useCallback(async (perfumeId: string): Promise<AddPerfumeToCollectionResponseDto> => {
-    setItems(prev => prev.map(p => p.id === perfumeId ? { ...p, isBeingAdded: true } : p));
+    setItems((prev) => prev.map((p) => (p.id === perfumeId ? { ...p, isBeingAdded: true } : p)));
     try {
-      const response = await fetch('/api/collection', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/collection", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ perfume_id: perfumeId }),
       });
       if (!response.ok) {
-        throw new Error('Failed to add perfume');
+        throw new Error("Failed to add perfume");
       }
       const result: AddPerfumeToCollectionResponseDto = await response.json();
-      setItems(prev => prev.map(p => p.id === perfumeId ? { ...p, isBeingAdded: false, isInCollection: true } : p));
+      setItems((prev) =>
+        prev.map((p) => (p.id === perfumeId ? { ...p, isBeingAdded: false, isInCollection: true } : p))
+      );
       return result;
     } catch (error) {
       console.error(error);
-      setItems(prev => prev.map(p => p.id === perfumeId ? { ...p, isBeingAdded: false } : p));
+      setItems((prev) => prev.map((p) => (p.id === perfumeId ? { ...p, isBeingAdded: false } : p)));
       throw error;
     }
   }, []);
@@ -92,6 +99,6 @@ export const usePublicPerfumes = (existingCollectionIds: Set<string>) => {
     search,
     loadMore,
     hasMore,
-    addPerfume
+    addPerfume,
   };
 };

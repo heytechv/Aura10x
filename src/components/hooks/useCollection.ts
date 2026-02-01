@@ -12,7 +12,7 @@ export const useCollection = () => {
         throw new Error("Failed to fetch collection");
       }
       const data: { data: CollectionItemDto[] } = await response.json();
-      setItems(data.data.map(item => ({ ...item, isBeingRemoved: false })));
+      setItems(data.data.map((item) => ({ ...item, isBeingRemoved: false })));
       setStatus("success");
     } catch (error) {
       console.error(error);
@@ -31,9 +31,7 @@ export const useCollection = () => {
 
   const removePerfumeFromCollection = useCallback(async (perfumeId: string) => {
     setItems((prevItems) =>
-      prevItems.map((item) =>
-        item.perfume_id === perfumeId ? { ...item, isBeingRemoved: true } : item,
-      ),
+      prevItems.map((item) => (item.perfume_id === perfumeId ? { ...item, isBeingRemoved: true } : item))
     );
 
     try {
@@ -49,9 +47,7 @@ export const useCollection = () => {
     } catch (error) {
       console.error(error);
       setItems((prevItems) =>
-        prevItems.map((item) =>
-          item.perfume_id === perfumeId ? { ...item, isBeingRemoved: false } : item,
-        ),
+        prevItems.map((item) => (item.perfume_id === perfumeId ? { ...item, isBeingRemoved: false } : item))
       );
     }
   }, []);

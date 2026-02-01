@@ -31,14 +31,11 @@ export default function LoginForm() {
   };
 
   return (
-    <div 
-      className="mx-auto"
-      style={{ width: "100%", maxWidth: "400px" }}
-    >
+    <div className="mx-auto" style={{ width: "100%", maxWidth: "400px" }}>
       {/* Back Button */}
       <div className="mb-8 flex justify-start">
-        <a 
-          href="/" 
+        <a
+          href="/"
           className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted/50 hover:bg-muted transition-colors border border-border/40"
           aria-label="Powrót do strony głównej"
         >
@@ -50,9 +47,7 @@ export default function LoginForm() {
       <div className="space-y-8">
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Witaj z powrotem</h1>
-          <p className="text-muted-foreground text-sm">
-            Zaloguj się do swojego konta, aby kontynuować
-          </p>
+          <p className="text-muted-foreground text-sm">Zaloguj się do swojego konta, aby kontynuować</p>
         </div>
 
         {/* Card containing the form */}
@@ -63,7 +58,7 @@ export default function LoginForm() {
                 {errors.root.serverError.message}
               </div>
             )}
-            
+
             <div className="space-y-2">
               <label htmlFor="email" className="text-sm font-medium block">
                 Adres email
@@ -82,11 +77,9 @@ export default function LoginForm() {
                   {...register("email")}
                 />
               </div>
-              {errors.email && (
-                <p className="text-sm text-red-500 font-medium">{errors.email.message}</p>
-              )}
+              {errors.email && <p className="text-sm text-red-500 font-medium">{errors.email.message}</p>}
             </div>
-            
+
             <div className="space-y-2">
               <label htmlFor="password" className="text-sm font-medium block">
                 Hasło
@@ -95,9 +88,9 @@ export default function LoginForm() {
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/80 pointer-events-none">
                   <Lock className="h-4 w-4" />
                 </div>
-                <Input 
+                <Input
                   id="password"
-                  type="password" 
+                  type="password"
                   placeholder="Wprowadź swoje hasło"
                   className="pl-9 h-10"
                   disabled={isSubmitting}
@@ -105,12 +98,15 @@ export default function LoginForm() {
                   {...register("password")}
                 />
               </div>
-              {errors.password && (
-                <p className="text-sm text-red-500 font-medium">{errors.password.message}</p>
-              )}
+              {errors.password && <p className="text-sm text-red-500 font-medium">{errors.password.message}</p>}
             </div>
 
-            <Button type="submit" className="w-full h-10 font-medium" disabled={isSubmitting} data-test-id="login-submit-btn">
+            <Button
+              type="submit"
+              className="w-full h-10 font-medium"
+              disabled={isSubmitting}
+              data-test-id="login-submit-btn"
+            >
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

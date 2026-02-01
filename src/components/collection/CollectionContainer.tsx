@@ -20,7 +20,9 @@ export const CollectionContainer = () => {
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-4xl font-bold">Moja kolekcja</h1>
-        <Button onClick={() => setIsModalOpen(true)} data-test-id="collection-add-btn">Dodaj nowe perfumy</Button>
+        <Button onClick={() => setIsModalOpen(true)} data-test-id="collection-add-btn">
+          Dodaj nowe perfumy
+        </Button>
       </div>
 
       {status === "error" && (
@@ -29,7 +31,7 @@ export const CollectionContainer = () => {
         </div>
       )}
 
-      {status === 'success' && items.length === 0 ? (
+      {status === "success" && items.length === 0 ? (
         <EmptyState onAddClick={() => setIsModalOpen(true)} />
       ) : (
         <CollectionGrid items={items} status={status} onRemove={removePerfumeFromCollection} />

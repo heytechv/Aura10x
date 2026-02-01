@@ -14,9 +14,7 @@ async function globalTeardown() {
   const testUserId = process.env.E2E_USERNAME_ID;
 
   if (!supabaseUrl || !supabaseKey || !testUserId) {
-    throw new Error(
-      "Missing Supabase environment variables for global teardown."
-    );
+    throw new Error("Missing Supabase environment variables for global teardown.");
   }
 
   const supabase = createClient(supabaseUrl, supabaseKey, {
@@ -25,10 +23,7 @@ async function globalTeardown() {
     },
   });
 
-  const { error } = await supabase
-    .from("user_collection")
-    .delete()
-    .eq("user_id", testUserId);
+  const { error } = await supabase.from("user_collection").delete().eq("user_id", testUserId);
 
   if (error) {
     console.error("Error cleaning up user collection:", error);

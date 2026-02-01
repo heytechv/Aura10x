@@ -1,6 +1,6 @@
-import type { APIRoute } from 'astro';
-import { createSupabaseServerInstance } from '../../../db/supabase';
-import { z } from 'zod';
+import type { APIRoute } from "astro";
+import { createSupabaseServerInstance } from "../../../db/supabase";
+import { z } from "zod";
 
 const signinSchema = z.object({
   email: z.string().email(),
@@ -13,7 +13,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const result = signinSchema.safeParse(body);
 
     if (!result.success) {
-      return new Response(JSON.stringify({ error: 'Nieprawidłowe dane wejściowe' }), {
+      return new Response(JSON.stringify({ error: "Nieprawidłowe dane wejściowe" }), {
         status: 400,
       });
     }
@@ -27,7 +27,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     });
 
     if (error) {
-      return new Response(JSON.stringify({ error: 'Nieprawidłowe dane logowania. Spróbuj ponownie.' }), {
+      return new Response(JSON.stringify({ error: "Nieprawidłowe dane logowania. Spróbuj ponownie." }), {
         status: 401,
       });
     }
@@ -36,7 +36,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       status: 200,
     });
   } catch (e) {
-    return new Response(JSON.stringify({ error: 'Wystąpił błąd serwera' }), {
+    return new Response(JSON.stringify({ error: "Wystąpił błąd serwera" }), {
       status: 500,
     });
   }

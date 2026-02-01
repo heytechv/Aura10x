@@ -3,18 +3,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Plus, Trash2, Loader2 } from "lucide-react";
 
-type PerfumeCardProps = {
+interface PerfumeCardProps {
   variant: "collection" | "add";
   perfume: PerfumeListItemViewModel | CollectionItemViewModel;
   onRemove?: (perfumeId: string) => void;
   onAdd?: (perfume: PerfumeListItemViewModel) => void;
   isProcessing?: boolean;
   isDisabled?: boolean;
-};
+}
 
 // Type guard to check if the perfume is of type CollectionItemViewModel
 const isCollectionItem = (
-  perfume: PerfumeListItemViewModel | CollectionItemViewModel,
+  perfume: PerfumeListItemViewModel | CollectionItemViewModel
 ): perfume is CollectionItemViewModel => {
   return "perfume" in perfume && "added_at" in perfume;
 };
@@ -69,11 +69,7 @@ export const PerfumeCard = ({
             disabled={isProcessing || isDisabled}
             data-test-id="card-remove-btn"
           >
-            {isProcessing ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <Trash2 className="mr-2 h-4 w-4" />
-            )}
+            {isProcessing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Trash2 className="mr-2 h-4 w-4" />}
             Usuń
           </Button>
         )}
@@ -86,11 +82,7 @@ export const PerfumeCard = ({
             disabled={isProcessing || isDisabled}
             data-test-id="card-add-btn"
           >
-            {isProcessing ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <Plus className="mr-2 h-4 w-4" />
-            )}
+            {isProcessing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Plus className="mr-2 h-4 w-4" />}
             {isDisabled ? "W kolekcji" : "Dodaj"}
           </Button>
         )}

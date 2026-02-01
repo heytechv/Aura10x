@@ -11,7 +11,9 @@ const ctaText = isLoggedIn ? "Przejdź do kolekcji" : "Stwórz swoją kolekcję"
 const ctaHref = isLoggedIn ? "/collection" : "/login";
 ---
 
-<section class="container mx-auto flex flex-col items-center justify-center gap-6 pb-8 pt-6 text-center md:pb-12 md:pt-10 lg:py-28">
+<section
+  class="container mx-auto flex flex-col items-center justify-center gap-6 pb-8 pt-6 text-center md:pb-12 md:pt-10 lg:py-28"
+>
   <h1 class="text-balance text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]">
     Odkryj i zarządzaj swoją kolekcją perfum
   </h1>
@@ -19,8 +21,8 @@ const ctaHref = isLoggedIn ? "/collection" : "/login";
     AURA to Twoje osobiste centrum do katalogowania, odkrywania i dzielenia się pasją do zapachów.
   </p>
   <div class="flex w-full items-center justify-center space-x-4">
-      <a href={ctaHref}>
-        <Button size="lg" client:load>{ctaText}</Button>
-      </a>
+    <a href={ctaHref}>
+      <Button size="lg" client:load>{ctaText}</Button>
+    </a>
   </div>
 </section>

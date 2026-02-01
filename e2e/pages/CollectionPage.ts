@@ -1,7 +1,7 @@
-import { type Page, type Locator, expect } from '@playwright/test';
-import { AddPerfumeModal } from './AddPerfumeModal';
-import { PerfumeCard } from './components/PerfumeCard';
-import { Navigation } from './components/Navigation';
+import { type Page, type Locator, expect } from "@playwright/test";
+import { AddPerfumeModal } from "./AddPerfumeModal";
+import { PerfumeCard } from "./components/PerfumeCard";
+import { Navigation } from "./components/Navigation";
 
 export class CollectionPage {
   readonly page: Page;
@@ -21,27 +21,27 @@ export class CollectionPage {
   }
 
   async goto() {
-    await this.page.goto('/collection');
+    await this.page.goto("/collection");
   }
 
   async openAddModal() {
-      if (await this.emptyStateAddButton.isVisible()) {
-          await this.emptyStateAddButton.click();
-      } else {
-          await this.addPerfumeButton.click();
-      }
-      // After clicking, wait for the modal's search input to be visible
-      // This confirms the modal is open and ready for interaction.
-      await this.modal.searchInput.waitFor({ state: 'visible' });
+    if (await this.emptyStateAddButton.isVisible()) {
+      await this.emptyStateAddButton.click();
+    } else {
+      await this.addPerfumeButton.click();
+    }
+    // After clicking, wait for the modal's search input to be visible
+    // This confirms the modal is open and ready for interaction.
+    await this.modal.searchInput.waitFor({ state: "visible" });
   }
 
   getPerfumeCard(perfumeId: string): PerfumeCard {
-      const cardLocator = this.collectionGrid.locator(`[data-test-id="perfume-card-${perfumeId}"]`);
-      return new PerfumeCard(cardLocator);
+    const cardLocator = this.collectionGrid.locator(`[data-test-id="perfume-card-${perfumeId}"]`);
+    return new PerfumeCard(cardLocator);
   }
 
   async verifyPerfumeInCollection(perfumeId: string) {
-      const card = this.getPerfumeCard(perfumeId);
-      await card.isVisible();
+    const card = this.getPerfumeCard(perfumeId);
+    await card.isVisible();
   }
 }

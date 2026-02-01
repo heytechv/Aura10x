@@ -1,5 +1,5 @@
-import { type Page, type Locator } from '@playwright/test';
-import { Navigation } from './components/Navigation';
+import { type Page, type Locator } from "@playwright/test";
+import { Navigation } from "./components/Navigation";
 
 export class LoginPage {
   readonly page: Page;
@@ -17,18 +17,18 @@ export class LoginPage {
   }
 
   async goto() {
-    await this.page.goto('/login');
+    await this.page.goto("/login");
     // Wait for hydration to complete (client:load components)
     // networkidle is usually sufficient for React to attach event listeners
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState("networkidle");
   }
 
   async login(email: string, password: string) {
     await this.emailInput.fill(email);
     await this.passwordInput.fill(password);
-    
+
     // Ensure button is ready
-    await this.submitButton.waitFor({ state: 'visible' });
+    await this.submitButton.waitFor({ state: "visible" });
     await this.submitButton.click();
   }
 }

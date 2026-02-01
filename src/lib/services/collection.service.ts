@@ -2,10 +2,7 @@ import type { CollectionItemDto, UserCollection } from "../../types";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { AppError, handleServiceError } from "../handle-service-error";
 
-export const getCollectionByUserId = async (
-  userId: string,
-  supabase: SupabaseClient
-): Promise<CollectionItemDto[]> => {
+export const getCollectionByUserId = async (userId: string, supabase: SupabaseClient): Promise<CollectionItemDto[]> => {
   const { data, error } = await supabase
     .from("user_collection")
     .select(

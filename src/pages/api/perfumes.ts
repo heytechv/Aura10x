@@ -1,4 +1,3 @@
-
 import type { APIRoute } from "astro";
 import { z } from "zod";
 import { getPublicPerfumes } from "@/lib/services/perfume.service";
@@ -60,9 +59,9 @@ export const GET: APIRoute = async ({ url, locals }) => {
     });
   } catch (error) {
     console.error("Error fetching perfumes:", error);
-    return new Response(
-      JSON.stringify({ error: "Internal Server Error" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 };

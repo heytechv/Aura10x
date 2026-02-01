@@ -1,5 +1,5 @@
-import { type Page, type Locator, expect } from '@playwright/test';
-import { PerfumeCard } from './components/PerfumeCard';
+import { type Page, type Locator, expect } from "@playwright/test";
+import { PerfumeCard } from "./components/PerfumeCard";
 
 export class AddPerfumeModal {
   readonly page: Page;
@@ -16,9 +16,9 @@ export class AddPerfumeModal {
 
   async waitForLoad() {
     // Wait for the skeletons to appear first (indicates loading has started)
-    await this.skeletonCards.first().waitFor({ state: 'visible' });
+    await this.skeletonCards.first().waitFor({ state: "visible" });
     // Then wait for them to disappear (indicates loading has finished)
-    await this.skeletonCards.first().waitFor({ state: 'hidden' });
+    await this.skeletonCards.first().waitFor({ state: "hidden" });
   }
 
   async search(query: string) {
@@ -28,26 +28,26 @@ export class AddPerfumeModal {
   }
 
   async getFirstResultId(): Promise<string> {
-      // After searching, the grid updates. We must wait for the results to be visible.
-      // We expect at least one card to be present.
-      const firstCard = this.resultsGrid.locator('[data-test-id^="perfume-card-"]').first();
-      await firstCard.waitFor({ state: 'visible' });
-      const testId = await firstCard.getAttribute('data-test-id');
-      if (!testId) throw new Error('First card has no data-test-id');
-      return testId.replace('perfume-card-', '');
+    // After searching, the grid updates. We must wait for the results to be visible.
+    // We expect at least one card to be present.
+    const firstCard = this.resultsGrid.locator('[data-test-id^="perfume-card-"]').first();
+    await firstCard.waitFor({ state: "visible" });
+    const testId = await firstCard.getAttribute("data-test-id");
+    if (!testId) throw new Error("First card has no data-test-id");
+    return testId.replace("perfume-card-", "");
   }
 
   getPerfumeCard(perfumeId: string): PerfumeCard {
-      const cardLocator = this.resultsGrid.locator(`[data-test-id="perfume-card-${perfumeId}"]`);
-      return new PerfumeCard(cardLocator);
+    const cardLocator = this.resultsGrid.locator(`[data-test-id="perfume-card-${perfumeId}"]`);
+    return new PerfumeCard(cardLocator);
   }
 
   async addPerfume(perfumeId: string) {
-      const card = this.getPerfumeCard(perfumeId);
-      await card.add();
+    const card = this.getPerfumeCard(perfumeId);
+    await card.add();
   }
 
   async close() {
-      await this.page.keyboard.press('Escape');
+    await this.page.keyboard.press("Escape");
   }
 }

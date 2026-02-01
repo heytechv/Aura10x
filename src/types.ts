@@ -25,30 +25,27 @@ export type UserCollection = Tables<"user_collection">;
  *
  * @see PaginatedPerfumesResponseDto
  */
-export type PerfumeListItemDto = Pick<
-  Perfume,
-  "id" | "name" | "slug" | "image_path"
-> & {
+export type PerfumeListItemDto = Pick<Perfume, "id" | "name" | "slug" | "image_path"> & {
   brand: Pick<Brand, "name" | "slug">;
 };
 
 /**
  * Represents pagination details for paginated responses.
  */
-export type PaginationDetails = {
+export interface PaginationDetails {
   currentPage: number;
   totalPages: number;
   totalItems: number;
-};
+}
 
 /**
  * DTO for the paginated response of the perfume list.
  * Used in the `GET /api/perfumes` endpoint.
  */
-export type PaginatedPerfumesResponseDto = {
+export interface PaginatedPerfumesResponseDto {
   data: PerfumeListItemDto[];
   pagination: PaginationDetails;
-};
+}
 
 /**
  * DTO for an individual item in the user's collection.
@@ -65,10 +62,10 @@ export type CollectionItemDto = Pick<UserCollection, "perfume_id" | "added_at"> 
  * DTO for the response when a perfume is successfully added to the collection.
  * Used in the `POST /api/collection` endpoint.
  */
-export type AddPerfumeToCollectionResponseDto = {
+export interface AddPerfumeToCollectionResponseDto {
   message: string;
   data: UserCollection;
-};
+}
 
 // --- Command Models ---
 

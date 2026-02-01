@@ -23,9 +23,7 @@ const { title = "AURA", theme = "light" } = Astro.props;
     <title>{title}</title>
     <ViewTransitions />
   </head>
-  <body
-    class="flex min-h-screen flex-col bg-background font-sans antialiased"
-  >
+  <body class="flex min-h-screen flex-col bg-background font-sans antialiased">
     <Navigation />
     <slot />
   </body>

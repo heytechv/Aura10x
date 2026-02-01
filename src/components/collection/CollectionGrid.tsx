@@ -2,11 +2,11 @@ import type { CollectionItemViewModel } from "@/types";
 import { PerfumeCard } from "@/components/shared/PerfumeCard";
 import { SkeletonCard } from "@/components/shared/SkeletonCard";
 
-type CollectionGridProps = {
+interface CollectionGridProps {
   items: CollectionItemViewModel[];
   status: "loading" | "success" | "error";
   onRemove: (perfumeId: string) => void;
-};
+}
 
 export const CollectionGrid = ({ items, status, onRemove }: CollectionGridProps) => {
   return (

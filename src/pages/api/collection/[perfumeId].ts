@@ -36,18 +36,11 @@ export const DELETE: APIRoute = async ({ params, locals }) => {
   }
 
   try {
-    await removePerfumeFromCollection(
-      user.id,
-      validationResult.data,
-      supabase
-    );
-    return new Response(
-      JSON.stringify({ message: "Perfume removed successfully." }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    await removePerfumeFromCollection(user.id, validationResult.data, supabase);
+    return new Response(JSON.stringify({ message: "Perfume removed successfully." }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     if (error instanceof AppError) {
       return new Response(JSON.stringify({ message: error.message }), {
@@ -57,12 +50,9 @@ export const DELETE: APIRoute = async ({ params, locals }) => {
     }
 
     console.error("Internal Server Error:", error);
-    return new Response(
-      JSON.stringify({ message: "An unexpected error occurred." }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return new Response(JSON.stringify({ message: "An unexpected error occurred." }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 };
