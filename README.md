@@ -9,6 +9,10 @@ A modern, opinionated starter template for building fast, accessible, and AI-fri
 - [TypeScript](https://www.typescriptlang.org/) v5 - Type-safe JavaScript
 - [Tailwind CSS](https://tailwindcss.com/) v4.0.17 - Utility-first CSS framework
 
+### Deployment
+
+- [Cloudflare Pages](https://pages.cloudflare.com/) - Edge-native deployment platform
+
 ### Testing
 
 - [Vitest](https://vitest.dev/) - Blazing fast unit test framework

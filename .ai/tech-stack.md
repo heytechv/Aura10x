@@ -16,12 +16,14 @@ Niniejszy dokument opisuje stos technologiczny wykorzystany w procesie tworzenia
     * **Storage**: Magazyn obiektowy (Object Storage) do hostowania zdjęć flakonów perfum.
 * **Authentication**: Uwierzytelnianie jest obsługiwane przez bibliotekę `@supabase/ssr`, która integruje Supabase Auth z logowaniem w środowisku renderowania po stronie serwera (SSR) Astro. Zarządza sesjami i cookies w oprogramowaniu pośredniczącym (middleware) i punktach końcowych API.
 
-## 3. CI/CD i Hosting:
-* **Github Actions**: do tworzenia pipeline’ów CI/CD
-* **DigitalOcean**: do hostowania aplikacji za pośrednictwem obrazu docker
-
-## 4. Testowanie (Quality Assurance)
+## 3. Testowanie (Quality Assurance)
 * **Vitest**: Główny runner testów jednostkowych i integracyjnych, wybrany ze względu na szybkość i natywną integrację z Vite.
 * **React Testing Library**: Zestaw narzędzi do testowania komponentów React, skupiający się na testowaniu zachowania aplikacji z perspektywy użytkownika.
 * **Happy-DOM**: Lekka i szybka implementacja DOM używana do symulacji środowiska przeglądarki w testach jednostkowych.
 * **Playwright**: Narzędzie do automatyzacji testów End-to-End (E2E), umożliwiające testowanie krytycznych ścieżek użytkownika w rzeczywistych przeglądarkach.
+
+## 4. Deployments & Releases
+* **Cloudflare Pages**: Wybrana platforma hostingowa dla wersji produkcyjnej.
+    * **Zalety**: Globalna sieć CDN, wsparcie dla Astro SSR (poprzez adapter `@astrojs/cloudflare`), hojny darmowy plan i łatwa skalowalność.
+    * **Model operacyjny**: Server-Side Rendering (SSR) uruchamiany na krawędzi sieci (Edge), co zapewnia minimalne opóźnienia dla użytkowników na całym świecie.
+* **Github Actions**: Narzędzie CI/CD odpowiedzialne za automatyczne budowanie i wdrażanie aplikacji na Cloudflare Pages po każdym merge'u do głównego brancha.
