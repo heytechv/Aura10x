@@ -42,6 +42,10 @@ Wersja v1 posiada uproszczoną nawigację:
     *   Użytkownik może usuwać perfumy ze swojej kolekcji.
     *   W tej wersji nie ma profili kontekstowych (np. "Randka", "Biuro") ani procentowego dopasowania. Istnieje tylko jedna, globalna kolekcja użytkownika.
 
+### 3.3. Logika Biznesowa (Reguły)
+*   **Limity Konta (Logic of Tiers)**: Użytkownik z darmowym kontem może posiadać maksymalnie **10 perfum** w kolekcji. Próba dodania kolejnego zapachu powyżej tego limitu skutkuje blokadą akcji i komunikatem o konieczności przejścia na plan Premium (symulacja w MVP).
+*   **Walidacja Zestawów (Bundle Logic)**: Jeśli użytkownik skompletuje 3 zapachy tej samej marki w swojej kolekcji, system rozpoznaje to zdarzenie i odblokowuje specjalną odznakę "Ambasador Marki [Nazwa]" (w MVP v1 realizowane jako log po stronie serwera).
+
 ## 4. Historyjki Użytkownika (v1 MVP)
 
 | ID | Tytuł | Opis | Kryteria Akceptacji |

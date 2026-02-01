@@ -6,6 +6,7 @@ import { PerfumeCard } from "@/components/shared/PerfumeCard";
 import { SkeletonCard } from "@/components/shared/SkeletonCard";
 import { usePublicPerfumes } from "@/components/hooks/usePublicPerfumes";
 import type { AddPerfumeToCollectionResponseDto, PerfumeListItemViewModel } from "@/types";
+import { toast } from "sonner";
 
 // A simple debounce implementation
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -43,8 +44,23 @@ export const AddPerfumeModal = ({ isOpen, onClose, onPerfumeAdded, existingColle
     try {
       const response = await addPerfume(perfume.id);
       onPerfumeAdded(response);
+      toast.success("Perfumy dodane do kolekcji");
+
+      if (response.badgeUnlocked) {
+        toast.message("Odznaka Odblokowana! 🏆", {
+          description: response.badgeUnlocked,
+          duration: 5000,
+        });
+      }
     } catch (error) {
       console.error("Failed to add perfume", error);
+      if (error instanceof Error) {
+        toast.error("Błąd dodawania", {
+          description: error.message,
+        });
+      } else {
+        toast.error("Wystąpił nieoczekiwany błąd");
+      }
     }
   };
 

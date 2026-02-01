@@ -78,8 +78,10 @@ export const usePublicPerfumes = (existingCollectionIds: Set<string>) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ perfume_id: perfumeId }),
       });
+
       if (!response.ok) {
-        throw new Error("Failed to add perfume");
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to add perfume");
       }
       const result: AddPerfumeToCollectionResponseDto = await response.json();
       setItems((prev) =>

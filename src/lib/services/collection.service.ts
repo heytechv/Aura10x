@@ -56,12 +56,12 @@ export const addPerfumeToCollection = async (
   userId: string,
   perfumeId: string,
   supabase: SupabaseClient
-): Promise<UserCollection> => {
+): Promise<{ data: UserCollection; badgeUnlocked?: string }> => {
   try {
     // 1. Check if perfume exists
     const { data: perfume, error: perfumeError } = await supabase
       .from("perfumes")
-      .select("id")
+      .select("id, brand_id")
       .eq("id", perfumeId)
       .single();
 
@@ -81,7 +81,25 @@ export const addPerfumeToCollection = async (
       throw new AppError("Perfume already in collection.", 409);
     }
 
-    // 3. Add the new perfume to the collection
+    // 3. Check Account Limits (Tier Logic)
+    // Rule: Free tier users can have max 10 perfumes.
+    const { count: collectionCount, error: countError } = await supabase
+      .from("user_collection")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", userId);
+
+    if (countError) throw countError;
+
+    const MAX_FREE_ITEMS = 10;
+    // Assuming everyone is on "Free" tier for MVP v1
+    if (collectionCount !== null && collectionCount >= MAX_FREE_ITEMS) {
+      throw new AppError(
+        `Free tier limit reached (${MAX_FREE_ITEMS}). Upgrade to Premium to add more.`,
+        403
+      );
+    }
+
+    // 4. Add the new perfume to the collection
     const { data: newCollectionEntry, error: insertError } = await supabase
       .from("user_collection")
       .insert({ user_id: userId, perfume_id: perfumeId })
@@ -91,7 +109,32 @@ export const addPerfumeToCollection = async (
     if (insertError) throw insertError;
     if (!newCollectionEntry) throw new AppError("Failed to add perfume to collection", 500);
 
-    return newCollectionEntry;
+    // 5. Check Bundle Logic (Brand Ambassador Badge)
+    // Rule: If user adds 3 perfumes from the same brand, unlock "Brand Ambassador" badge.
+    let badgeUnlocked: string | undefined;
+
+    if (perfume.brand_id) {
+      const { count: brandCount } = await supabase
+        .from("user_collection")
+        .select("perfume_id, perfumes!inner(brand_id)", { count: "exact", head: true })
+        .eq("user_id", userId)
+        .eq("perfumes.brand_id", perfume.brand_id);
+
+      if (brandCount === 3) {
+        const { data: brand } = await supabase
+          .from("brands")
+          .select("name")
+          .eq("id", perfume.brand_id)
+          .single();
+
+        if (brand) {
+          badgeUnlocked = `Ambasador Marki ${brand.name}`;
+          console.log(`🏆 BADGE UNLOCKED: ${badgeUnlocked}`);
+        }
+      }
+    }
+
+    return { data: newCollectionEntry, badgeUnlocked };
   } catch (error) {
     throw handleServiceError(error);
   }

@@ -145,6 +145,8 @@ Zarządzanie stanem zostanie zrealizowane głównie za pomocą wbudowanych hook�
 ## 9. Warunki i walidacja
 - **Dostęp do widoku**: Logika na poziomie strony (`/src/pages/collection.astro`) lub middleware weryfikuje, czy użytkownik jest zalogowany. Jeśli nie, następuje przekierowanie. (Implementacja logowania jest pominięta zgodnie z wytycznymi).
 - **Dodawanie duplikatów**: Przycisk "Dodaj" w modalu będzie nieaktywny (`disabled`), jeśli perfumy znajdują się już w kolekcji użytkownika. Stan ten jest weryfikowany na podstawie `existingCollectionIds` przekazanych do modala. Dodatkowo, API zwraca błąd `409 Conflict`, który będzie obsłużony na froncie.
+- **Limity konta (Tier Limits)**: API zablokuje dodanie perfum (kod 403), jeśli użytkownik przekroczy limit 10 perfum w darmowym planie. Frontend wyświetli komunikat z informacją o konieczności upgrade'u.
+- **Odznaki (Bundle Logic)**: System automatycznie weryfikuje po stronie serwera, czy dodanie zapachu kompletuje zestaw 3 perfum danej marki. (W MVP v1 informacja ta jest logowana po stronie serwera, brak dedykowanego UI).
 - **Puste wyszukiwanie**: Jeśli wyszukiwanie w modalu nie zwróci wyników, zostanie wyświetlony odpowiedni komunikat.
 
 ## 10. Obsługa błędów

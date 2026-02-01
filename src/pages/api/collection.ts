@@ -57,11 +57,16 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     const { perfume_id } = validation.data;
-    const newCollectionEntry = await addPerfumeToCollection(user.id, perfume_id, supabase);
+    const { data: newCollectionEntry, badgeUnlocked } = await addPerfumeToCollection(
+      user.id,
+      perfume_id,
+      supabase
+    );
 
     const response: AddPerfumeToCollectionResponseDto = {
       message: "Perfume added successfully.",
       data: newCollectionEntry,
+      badgeUnlocked,
     };
 
     return new Response(JSON.stringify(response), {

@@ -65,6 +65,7 @@ export type CollectionItemDto = Pick<UserCollection, "perfume_id" | "added_at"> 
 export interface AddPerfumeToCollectionResponseDto {
   message: string;
   data: UserCollection;
+  badgeUnlocked?: string;
 }
 
 // --- Command Models ---
