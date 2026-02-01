@@ -30,6 +30,7 @@ export const getCollectionByUserId = async (userId: string, supabase: SupabaseCl
     return [];
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const collectionItems: CollectionItemDto[] = data.map((item: any) => {
     const perfume = item.perfumes;
     const brand = perfume ? perfume.brands : null;

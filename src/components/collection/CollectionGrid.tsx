@@ -1,6 +1,5 @@
 import type { CollectionItemViewModel } from "@/types";
 import { PerfumeCard } from "@/components/shared/PerfumeCard";
-import { SkeletonCard } from "@/components/shared/SkeletonCard";
 
 interface CollectionGridProps {
   items: CollectionItemViewModel[];
@@ -8,7 +7,7 @@ interface CollectionGridProps {
   onRemove: (perfumeId: string) => void;
 }
 
-export const CollectionGrid = ({ items, status, onRemove }: CollectionGridProps) => {
+export const CollectionGrid = ({ items, onRemove }: CollectionGridProps) => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4" data-test-id="collection-grid">
       {items.map((item) => (

@@ -4,7 +4,6 @@ import { CollectionGrid } from "./CollectionGrid";
 import { EmptyState } from "./EmptyState";
 import { AddPerfumeModal } from "./AddPerfumeModal";
 import { useCollection } from "@/components/hooks/useCollection";
-import type { AddPerfumeToCollectionResponseDto } from "@/types";
 
 export const CollectionContainer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

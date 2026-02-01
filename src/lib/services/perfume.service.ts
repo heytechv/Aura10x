@@ -46,6 +46,7 @@ export async function getPublicPerfumes(
 
   // The type from the query doesn't match PerfumeListItemDto directly
   // because of the nested brand object. We need to cast it carefully.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const perfumes: PerfumeListItemDto[] = data as any;
 
   return { perfumes, totalItems: count ?? 0 };

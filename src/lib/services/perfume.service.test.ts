@@ -2,7 +2,9 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { getPublicPerfumes } from "./perfume.service";
 
 describe("PerfumeService", () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockSupabase: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockQueryBuilder: any;
 
   beforeEach(() => {
@@ -20,13 +22,16 @@ describe("PerfumeService", () => {
     };
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const setupSuccessResponse = (data: any[], count: number) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockQueryBuilder.then.mockImplementation((resolve: any) => {
       return Promise.resolve({ data, error: null, count }).then(resolve);
     });
   };
 
   const setupErrorResponse = (message: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockQueryBuilder.then.mockImplementation((resolve: any) => {
       return Promise.resolve({ data: null, error: { message }, count: null }).then(resolve);
     });
@@ -101,6 +106,7 @@ describe("PerfumeService", () => {
 
     it("should default totalItems to 0 if count is null", async () => {
       // Force count to be undefined/null
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       mockQueryBuilder.then.mockImplementation((resolve: any) => {
         return Promise.resolve({ data: [], error: null, count: null }).then(resolve);
       });

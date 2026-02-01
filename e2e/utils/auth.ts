@@ -56,7 +56,7 @@ export async function deleteTestUser(userId: string) {
   try {
     const { error } = await supabase.auth.admin.deleteUser(userId);
     if (error) console.warn("Could not delete test user:", error.message);
-  } catch (e) {
+  } catch {
     // likely 401 if not admin
   }
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import type { CollectionItemViewModel, CollectionItemDto, AddPerfumeToCollectionResponseDto } from "@/types";
+import type { CollectionItemViewModel, CollectionItemDto } from "@/types";
 export const useCollection = () => {
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
   const [items, setItems] = useState<CollectionItemViewModel[]>([]);

@@ -6,7 +6,7 @@ import { ensureTestUser, deleteTestUser } from "./utils/auth";
 test.describe("Collection Management", () => {
   let loginPage: LoginPage;
   let collectionPage: CollectionPage;
-  let testUser: { email: string; password: string; user?: any };
+  let testUser: { email: string; password: string; user?: { id: string } };
 
   test.beforeEach(async ({ page }) => {
     // Ensure test user exists

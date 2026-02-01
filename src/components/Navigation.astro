@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 
 const { user } = Astro.locals;
 const isLoggedIn = !!user;
+const username = user?.email?.split("@")[0];
 ---
 
 <header
@@ -25,15 +26,18 @@ const isLoggedIn = !!user;
     <div class="flex flex-1 items-center justify-end space-x-4">
       <nav class="flex items-center gap-4">
         {
-          !isLoggedIn ? (
+          !isLoggedIn && (
             <a href="/login">
               <Button variant="outline" data-test-id="nav-login-btn">
                 Zaloguj się
               </Button>
             </a>
-          ) : (
+          )
+        }
+        {
+          isLoggedIn && (
             <>
-              <div class="font-medium hidden sm:block">Witaj, {user?.email?.split("@")[0]}</div>
+              <div class="font-medium hidden sm:block">Witaj, {username}</div>
               <button
                 id="logout-btn"
                 class="text-sm font-medium transition-colors hover:text-foreground/80 text-foreground/60"

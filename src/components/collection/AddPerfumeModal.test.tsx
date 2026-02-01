@@ -14,6 +14,7 @@ vi.mock("@/components/shared/SkeletonCard", () => ({
 }));
 
 vi.mock("@/components/shared/PerfumeCard", () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   PerfumeCard: ({ perfume, onAdd, isProcessing, isDisabled }: any) => (
     <div data-testid="perfume-card">
       <span>{perfume.name}</span>
@@ -41,7 +42,7 @@ describe("AddPerfumeModal", () => {
     vi.useFakeTimers();
 
     // Default mock implementation (Success state with items)
-    (usePublicPerfumes as any).mockReturnValue({
+    vi.mocked(usePublicPerfumes).mockReturnValue({
       status: "success",
       items: [],
       search: mockSearch,
@@ -127,7 +128,7 @@ describe("AddPerfumeModal", () => {
   });
 
   it("displays skeleton cards when loading and no items", () => {
-    (usePublicPerfumes as any).mockReturnValue({
+    vi.mocked(usePublicPerfumes).mockReturnValue({
       status: "loading",
       items: [],
       search: mockSearch,
@@ -151,7 +152,7 @@ describe("AddPerfumeModal", () => {
   });
 
   it("displays error message on error status", () => {
-    (usePublicPerfumes as any).mockReturnValue({
+    vi.mocked(usePublicPerfumes).mockReturnValue({
       status: "error",
       items: [],
       search: mockSearch,
@@ -173,7 +174,7 @@ describe("AddPerfumeModal", () => {
   });
 
   it('displays "No results" when success but no items', () => {
-    (usePublicPerfumes as any).mockReturnValue({
+    vi.mocked(usePublicPerfumes).mockReturnValue({
       status: "success",
       items: [],
       search: mockSearch,
@@ -207,7 +208,7 @@ describe("AddPerfumeModal", () => {
       },
     ];
 
-    (usePublicPerfumes as any).mockReturnValue({
+    vi.mocked(usePublicPerfumes).mockReturnValue({
       status: "success",
       items: mockItems,
       search: mockSearch,
@@ -231,9 +232,19 @@ describe("AddPerfumeModal", () => {
   });
 
   it('calls loadMore when "Load more" button is clicked', () => {
-    (usePublicPerfumes as any).mockReturnValue({
+    vi.mocked(usePublicPerfumes).mockReturnValue({
       status: "success",
-      items: [{ id: "1", name: "P1", brand: { name: "B1" } }], // need at least one item
+      items: [
+        {
+          id: "1",
+          name: "P1",
+          brand: { name: "B1", slug: "b1" },
+          slug: "p1",
+          image_path: "",
+          isInCollection: false,
+          isBeingAdded: false,
+        },
+      ], // need at least one item
       search: mockSearch,
       loadMore: mockLoadMore,
       hasMore: true,
@@ -256,9 +267,19 @@ describe("AddPerfumeModal", () => {
   });
 
   it("shows loading indicator when loading more", () => {
-    (usePublicPerfumes as any).mockReturnValue({
+    vi.mocked(usePublicPerfumes).mockReturnValue({
       status: "loading",
-      items: [{ id: "1", name: "P1", brand: { name: "B1" } }],
+      items: [
+        {
+          id: "1",
+          name: "P1",
+          brand: { name: "B1", slug: "b1" },
+          slug: "p1",
+          image_path: "",
+          isInCollection: false,
+          isBeingAdded: false,
+        },
+      ],
       search: mockSearch,
       loadMore: mockLoadMore,
       hasMore: true,
@@ -283,13 +304,15 @@ describe("AddPerfumeModal", () => {
     const mockItem = {
       id: "1",
       name: "Perfume 1",
-      brand: { name: "Brand 1" },
+      brand: { name: "Brand 1", slug: "brand-1" },
       isInCollection: false,
       isBeingAdded: false,
+      slug: "p1",
+      image_path: "",
     };
-    const mockResponse = { id: "collection-id", perfume_id: "1" };
+    const mockResponse = { id: "collection-id", perfume_id: "1", added_at: new Date().toISOString() };
 
-    (usePublicPerfumes as any).mockReturnValue({
+    vi.mocked(usePublicPerfumes).mockReturnValue({
       status: "success",
       items: [mockItem],
       search: mockSearch,
@@ -323,12 +346,14 @@ describe("AddPerfumeModal", () => {
     const mockItem = {
       id: "1",
       name: "Perfume 1",
-      brand: { name: "Brand 1" },
+      brand: { name: "Brand 1", slug: "brand-1" },
       isInCollection: false,
       isBeingAdded: false,
+      slug: "p1",
+      image_path: "",
     };
 
-    (usePublicPerfumes as any).mockReturnValue({
+    vi.mocked(usePublicPerfumes).mockReturnValue({
       status: "success",
       items: [mockItem],
       search: mockSearch,
@@ -337,7 +362,7 @@ describe("AddPerfumeModal", () => {
       addPerfume: mockAddPerfume,
     });
 
-    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
     mockAddPerfume.mockRejectedValue(new Error("Failed"));
 
     render(

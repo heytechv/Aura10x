@@ -1,4 +1,4 @@
-import { type Page, type Locator, expect } from "@playwright/test";
+import { type Page, type Locator } from "@playwright/test";
 import { AddPerfumeModal } from "./AddPerfumeModal";
 import { PerfumeCard } from "./components/PerfumeCard";
 import { Navigation } from "./components/Navigation";
