@@ -23,7 +23,19 @@ function parseCookieHeader(cookieHeader: string): { name: string; value: string 
   });
 }
 
-export const createSupabaseServerInstance = (context: { headers: Headers; cookies: AstroCookies }) => {
+export const createSupabaseServerInstance = (context: {
+  headers: Headers;
+  cookies: AstroCookies;
+  env?: Record<string, string>;
+}) => {
+  const supabaseUrl = context.env?.SUPABASE_URL || import.meta.env.SUPABASE_URL;
+  const supabaseAnonKey = context.env?.SUPABASE_KEY || import.meta.env.SUPABASE_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error("Supabase URL or Key missing. Env:", context.env ? "Provided" : "Not provided");
+    throw new Error("Your project's URL and Key are required to create a Supabase client!");
+  }
+
   return createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
     cookieOptions,
     cookies: {

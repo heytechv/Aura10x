@@ -1,8 +1,7 @@
 import type { APIRoute } from "astro";
-import { createSupabaseServerInstance } from "../../../db/supabase";
 
-export const POST: APIRoute = async ({ request, cookies }) => {
-  const supabase = createSupabaseServerInstance({ cookies, headers: request.headers });
+export const POST: APIRoute = async ({ locals }) => {
+  const { supabase } = locals;
   const { error } = await supabase.auth.signOut();
 
   if (error) {

@@ -1,5 +1,4 @@
 import type { APIRoute } from "astro";
-import { createSupabaseServerInstance } from "../../../db/supabase";
 import { z } from "zod";
 
 const signinSchema = z.object({
@@ -7,7 +6,7 @@ const signinSchema = z.object({
   password: z.string().min(1),
 });
 
-export const POST: APIRoute = async ({ request, cookies }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const body = await request.json();
     const result = signinSchema.safeParse(body);
@@ -19,7 +18,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }
 
     const { email, password } = result.data;
-    const supabase = createSupabaseServerInstance({ cookies, headers: request.headers });
+    const { supabase } = locals;
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email,

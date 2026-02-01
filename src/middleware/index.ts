@@ -4,9 +4,12 @@ import { defineMiddleware } from "astro:middleware";
 const PROTECTED_ROUTES = ["/collection"];
 
 export const onRequest = defineMiddleware(async ({ locals, cookies, url, request, redirect }, next) => {
+  const runtimeEnv = locals.runtime?.env || {};
+
   const supabase = createSupabaseServerInstance({
     cookies,
     headers: request.headers,
+    env: runtimeEnv,
   });
 
   const {
